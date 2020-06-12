@@ -15,10 +15,120 @@
     <title>Footy Tips</title>
 </head>
 
+<nav class="navbar navbar-light bg-light d-flex justify-content-between">
+    <a class="navbar-brand" href="#">Footy Tips</a>
+    <button class="btn btn-outline-success">Refresh Data</button>
+</nav>
+
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">Footy Tips</a>
-    </nav>
+    <div class="card m-3">
+        <div class="card-header d-flex justify-content-between">
+            <span class="align-middle">Round</span>
+            <select class="form-control form-control-sm col-2">
+                {% for year in range(1993, 2021)%}
+                {% if year == 2020 %}
+                <option selected>{{ year }}</option>
+                {% else %}
+                <option>{{ year }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="card-body pb-0">
+            <p class="card-text">Home Away</p>
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                {% for i in range(1, 25)%}
+                <li class="page-item"><a class="page-link" href="#">{{ i }}</a></li>
+                {% endfor %}
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                <li class="page-item"><a class="page-link" href="#">Current</a></li>
+            </ul>
+            <p class="card-text">Finals</p>
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">Elimination</a></li>
+                <li class="page-item active"><a class="page-link" href="#">P1</a></li>
+                <li class="page-item"><a class="page-link" href="#">P2</a></li>
+                <li class="page-item"><a class="page-link" href="#">P3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Quater</a></li>
+                <li class="page-item"><a class="page-link" href="#">Semi</a></li>
+                <li class="page-item"><a class="page-link" href="#">Grand</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                <li class="page-item"><a class="page-link" href="#">Current</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card mx-3 mb-3">
+        <div class="card-header">
+            Matches
+        </div>
+        <div class="card-body">
+            {% for i in range(7) %}
+            <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                <label class="btn btn-outline-primary mr-3">
+                    <input type="radio" name="options" id="home">Home
+                </label>
+                <span class="mr-3">v</span>
+                <label class="btn btn-outline-primary mr-3">
+                    <input type="radio" name="options" id="away">Away
+                </label>
+                <span class="badge badge-secondary">@ Venue</span>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <div>
+                <button class="btn btn-primary mr-2">Favourites</button>
+                <button class="btn btn-primary">Random</button>
+            </div>
+            <button class="btn btn-danger">Clear</button>
+        </div>
+
+    </div>
+
+    <div class="card mx-3 mb-3">
+        <div class="card-header">
+            Email
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <label for="fromEmail">From</label>
+                    <input type="email" class="form-control" id="fromEmail" aria-describedby="fromEmailHelp"
+                        placeholder="name@example.com">
+                    <small id="fromEmailHelp" class="form-text text-muted">The email will appear to the recipent as from
+                        this address</small>
+                </div>
+                <div class="form-group">
+                    <label for="toEmail">To</label>
+                    <input type="email" class="form-control" id="toEmail" placeholder="name@example.com">
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-primary">Send</button>
+        </div>
+    </div>
+
+    <!-- Start email confirmation toast -->
+    <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+        <div class="toast" style="position: absolute; top: 0; right: 0;">
+            <div class="toast-header">
+                <img src="..." class="rounded mr-2" alt="...">
+                <strong class="mr-auto">Footy Tips</strong>
+                <small>Just now</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                Email sent
+            </div>
+        </div>
+    </div>
+    <!-- End email confirmation toast -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
