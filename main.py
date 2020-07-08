@@ -19,5 +19,14 @@ def refresh_data():
     resp.status_code = 200
     return resp
 
+@app.route('/rounds/year/<year>')
+def get_rounds_by_year(year):
+    dump = md.get_rounds_by_year(year)
+
+    resp = Response(dump)
+    resp.content_type = "application/json"
+    resp.status_code = 200
+    return resp
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
