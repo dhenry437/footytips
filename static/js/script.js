@@ -15,7 +15,7 @@ $("#selectYear").change(function() {
 });
 
 $(document).ready(function() {
-    $("#selectYear option[value='2020']").prop("selected", true);
+    $("#selectYear option[value=" + currentYear +"]").prop("selected", true);
 
     selectYearAJAX();
 });
@@ -102,6 +102,11 @@ function selectYearAJAX() {
                 paginationFinals += '</ul>';
 
                 $("#divRounds").append(paginationFinals);
+            }
+
+            // If current year select current round
+            if ($("#selectYear").val() == currentYear) {
+                paginationCurrent();
             }
         }
     });
@@ -203,3 +208,6 @@ function paginationCurrent() {
     // Call drawMatches
     drawMatches(currentRound);
 }
+
+// Select current on load
+//     Called in selectYearAJAX to ensure proper loading oder
