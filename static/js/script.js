@@ -6,6 +6,16 @@ $("#btnRefreshData").click(function() {
 });
 
 $("#selectYear").change(function() {
+    selectYearAJAX();
+});
+
+$(document).ready(function() {
+    $("#selectYear option[value='2020']").prop("selected", true);
+
+    selectYearAJAX();
+});
+
+function selectYearAJAX() {
     $.ajax({
         url: "/rounds/year/" + $("#selectYear").val(),
         method: "GET",
@@ -58,5 +68,5 @@ $("#selectYear").change(function() {
                 $("#divRounds").append(paginationFinals);
             }
         }
-    })
-});
+    });
+}
