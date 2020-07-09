@@ -38,7 +38,7 @@ class MatchData():
 
                     if row['competition'] == "HA" and int(row['round']) != currentRound:
                         currentRound = int(row['round'])
-                        ha.append(int(row['round']))
+                        ha.append(row['round'])
                         # print(row)
 
                     if row['competition'][-1] == "F":
@@ -58,6 +58,6 @@ class MatchData():
                         currentComp = row['competition']
 
 
-            dump = json.dumps({"premliminary": preliminary, "HA": ha, "finals": finals})
+            dump = json.dumps({"preliminary": preliminary, "HA": ha, "finals": finals})
 
         return dump
