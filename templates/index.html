@@ -16,7 +16,7 @@
 </head>
 
 <nav class="navbar navbar-light bg-light d-flex justify-content-between">
-    <a class="navbar-brand" href="#">Footy Tips</a>
+    <a class="navbar-brand" href="#">Footy Tips v2</a>
     <button class="btn btn-outline-success" id="btnRefreshData">Refresh Data</button>
 </nav>
 
@@ -26,11 +26,7 @@
             <span class="align-middle">Round</span>
             <select class="form-control form-control-sm col-2" id="selectYear">
                 {% for year in range(1993, 2021)%}
-                {% if year == 2020 %}
                 <option value="{{ year }}">{{ year }}</option>
-                {% else %}
-                <option value="{{ year }}">{{ year }}</option>
-                {% endif %}
                 {% endfor %}
             </select>
         </div>
@@ -47,19 +43,12 @@
         <div class="card-header">
             Matches
         </div>
-        <div class="card-body">
-            {% for i in range(7) %}
-            <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                <label class="btn btn-outline-primary mr-3">
-                    <input type="radio" name="options" id="home">Home
-                </label>
-                <span class="mr-3">v</span>
-                <label class="btn btn-outline-primary mr-3">
-                    <input type="radio" name="options" id="away">Away
-                </label>
-                <span class="badge badge-secondary">@ Venue</span>
+        <div class="card-body" id="divMatches">
+            <div class="alert alert-secondary">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>
+                </div>
             </div>
-            {% endfor %}
         </div>
         <div class="card-footer d-flex justify-content-between">
             <div>

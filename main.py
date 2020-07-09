@@ -28,5 +28,14 @@ def get_rounds_by_year(year):
     resp.status_code = 200
     return resp
 
+@app.route('/matches/year/<year>/round/<round>')
+def get_matches(year, round):
+    dump = md.get_matches(year, round)
+
+    resp = Response(dump)
+    resp.content_type = "application/json"
+    resp.status_code = 200
+    return resp
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
