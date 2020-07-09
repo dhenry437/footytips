@@ -62,7 +62,7 @@ function selectYearAJAX() {
                 paginationPreliminary += '<ul class="pagination">';
                 paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
                 data.preliminary.forEach(e => {
-                    paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event.target.text)">' + e + '</a></li>';
+                    paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
                 });
                 paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">Next</a></li>';
                 paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
@@ -76,7 +76,7 @@ function selectYearAJAX() {
             paginationHA += '<ul class="pagination">';
             paginationHA += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
             data.HA.forEach(e => {
-                paginationHA += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event.target.text)">' + e + '</a></li>';
+                paginationHA += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
             });
             paginationHA += '<li class="page-item"><a class="page-link" href="#">Next</a></li>';
             paginationHA += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
@@ -90,7 +90,7 @@ function selectYearAJAX() {
                 paginationFinals += '<ul class="pagination">';
                 paginationFinals += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
                 data.finals.forEach(e => {
-                    paginationFinals += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event.target.text)">' + e + '</a></li>';
+                    paginationFinals += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
                 });
                 paginationFinals += '<li class="page-item"><a class="page-link" href="#">Next</a></li>';
                 paginationFinals += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
@@ -135,4 +135,12 @@ function drawMatches(round) {
             });
         }
     });
+};
+
+function paginationActivate(e) {
+    // Deactivate all
+    $('#divRounds').find('li').removeClass('active');
+    
+    // Activate target
+    $(e).parent().addClass('active');
 };
