@@ -1,3 +1,8 @@
+"use strict";
+
+var currentRound = 6;
+var currentYear = 2020;
+
 $("#btnRefreshData").click(function() {
     $.ajax({
         url: "/refreshdata",
@@ -10,7 +15,7 @@ $("#selectYear").change(function() {
 });
 
 $(document).ready(function() {
-    $("#selectYear option[value='2020']").prop("selected", true);
+    $("#selectYear option[value=" + currentYear +"]").prop("selected", true);
 
     selectYearAJAX();
 });
@@ -60,12 +65,12 @@ function selectYearAJAX() {
                 var paginationPreliminary = "";
                 paginationPreliminary += '<p class="card-text">Preliminary</p>';
                 paginationPreliminary += '<ul class="pagination">';
-                paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
+                paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationPrev()">Previous</a></li>';
                 data.preliminary.forEach(e => {
-                    paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event.target.text)">' + e + '</a></li>';
+                    paginationPreliminary += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
                 });
-                paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">Next</a></li>';
-                paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
+                paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
+                paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
                 paginationPreliminary += '</ul>';
 
                 $("#divRounds").append(paginationPreliminary);
@@ -74,12 +79,12 @@ function selectYearAJAX() {
             var paginationHA = "";
             paginationHA += '<p class="card-text">Home Away</p>';
             paginationHA += '<ul class="pagination">';
-            paginationHA += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
+            paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationPrev()">Previous</a></li>';
             data.HA.forEach(e => {
-                paginationHA += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event.target.text)">' + e + '</a></li>';
+                paginationHA += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
             });
-            paginationHA += '<li class="page-item"><a class="page-link" href="#">Next</a></li>';
-            paginationHA += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
+            paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
+            paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
             paginationHA += '</ul>';
 
             $("#divRounds").append(paginationHA);
@@ -88,15 +93,20 @@ function selectYearAJAX() {
                 var paginationFinals = "";
                 paginationFinals += '<p class="card-text">Finals</p>';
                 paginationFinals += '<ul class="pagination">';
-                paginationFinals += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
+                paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationPrev()">Previous</a></li>';
                 data.finals.forEach(e => {
-                    paginationFinals += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event.target.text)">' + e + '</a></li>';
+                    paginationFinals += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
                 });
-                paginationFinals += '<li class="page-item"><a class="page-link" href="#">Next</a></li>';
-                paginationFinals += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
+                paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
+                paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
                 paginationFinals += '</ul>';
 
                 $("#divRounds").append(paginationFinals);
+            }
+
+            // If current year select current round
+            if ($("#selectYear").val() == currentYear) {
+                paginationCurrent();
             }
         }
     });
@@ -136,3 +146,68 @@ function drawMatches(round) {
         }
     });
 };
+
+// +------------------------=--+
+// |                           |
+// |    Pagination Controls    |
+// |                           |
+// +--------------------------=+
+
+function paginationActivate(e) {
+    // Deactivate all
+    $('#divRounds').find('li').removeClass('active');
+
+    // Activate target
+    $(e).parent().addClass('active');
+};
+
+function paginationNext() {
+    // Get current active
+    var current = $('#divRounds').find('li.active');
+
+    // Deactivate all
+    $('#divRounds').find('li').removeClass('active');
+
+    // Get next
+    var next = current.next('#roundSelector');
+
+    // Activate next
+    next.addClass('active');
+
+    // Call drawMatches
+    drawMatches(next.text());
+}
+
+function paginationPrev() {
+    // Get current active
+    var current = $('#divRounds').find('li.active');
+
+    // Deactivate all
+    $('#divRounds').find('li').removeClass('active');
+
+    // Get previous
+    var prev = current.prev('#roundSelector');
+
+    // Activate previous
+    prev.addClass('active');
+
+    // Call drawMatches
+    drawMatches(prev.text());
+}
+
+function paginationCurrent() {
+    // Get target
+    var target = $('#divRounds').find('li:contains('+ currentRound + ')').filter(function(index) { return $(this).text() == currentRound; });
+
+    // Deactivate all
+    $('#divRounds').find('li').removeClass('active');
+
+    // Activate target
+    target.addClass('active');
+
+    // Call drawMatches
+    drawMatches(currentRound);
+}
+
+// Select current on load
+//     Called in selectYearAJAX to ensure proper loading oder
