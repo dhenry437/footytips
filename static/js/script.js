@@ -1,3 +1,8 @@
+"use strict";
+
+var currentRound = 6;
+var currentYear = 2020;
+
 $("#btnRefreshData").click(function() {
     $.ajax({
         url: "/refreshdata",
@@ -65,7 +70,7 @@ function selectYearAJAX() {
                     paginationPreliminary += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
                 });
                 paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
-                paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
+                paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
                 paginationPreliminary += '</ul>';
 
                 $("#divRounds").append(paginationPreliminary);
@@ -79,7 +84,7 @@ function selectYearAJAX() {
                 paginationHA += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
             });
             paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
-            paginationHA += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
+            paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
             paginationHA += '</ul>';
 
             $("#divRounds").append(paginationHA);
@@ -93,7 +98,7 @@ function selectYearAJAX() {
                     paginationFinals += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
                 });
                 paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
-                paginationFinals += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
+                paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
                 paginationFinals += '</ul>';
 
                 $("#divRounds").append(paginationFinals);
@@ -183,4 +188,18 @@ function paginationPrev() {
 
     // Call drawMatches
     drawMatches(prev.text());
+}
+
+function paginationCurrent() {
+    // Get target
+    var target = $('#divRounds').find('li:contains('+ currentRound + ')').filter(function(index) { return $(this).text() == currentRound; });
+
+    // Deactivate all
+    $('#divRounds').find('li').removeClass('active');
+
+    // Activate target
+    target.addClass('active');
+
+    // Call drawMatches
+    drawMatches(currentRound);
 }
