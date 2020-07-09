@@ -6,7 +6,7 @@ class MatchData():
     df = 'matchdata.csv'
 
     def fetch_data(self):
-        csvHeader = "FanFooty-draw-ID,year,competition,round,gametime-(AET),day,home-team,away-team,ground,timeslot,TV-coverage,home-supergoals,home-goals,home-behinds,home-points,away-supergoals,away-goals,away-behinds,away-points,match-status\n"
+        csvHeader = "FanFootyDrawID,year,competition,round,gametime,day,homeTeam,awayTeam,ground,timeslot,TVCoverage,homeSupergoals,homeGoals,homeBehinds,homePoints,awaySupergoals,awayGoals,awayBehinds,awayPoints,matchStatus\n"
         
         # Get data from URL
         url = 'http://www.fanfooty.com.au/resource/draw.php'

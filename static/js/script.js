@@ -15,6 +15,37 @@ $(document).ready(function() {
     selectYearAJAX();
 });
 
+$("#roundSelector").click(function(e) {
+    console.log("Round = " + e.val());
+
+    $.ajax({
+        url: "/matches/year/" + $("#selectYear").val() + "/round/" + e.val(),
+        method: "GET",
+        beforeSend: function() {
+            $("#divMatches").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
+        },
+        success: function(data) {
+            $("#divRounds").html("");
+
+            data.forEach(e => {
+                var match = "";
+                match += '<div class="btn-group-toggle mb-2" data-toggle="buttons">';
+                match += '<label class="btn btn-outline-primary mr-3">';
+                match += '<input type="radio" name="options" id="home">' + e.homeTeam;
+                match += '</label>';
+                match += '<span class="mr-3">v</span>';
+                match += '<label class="btn btn-outline-primary mr-3">';
+                match += '<input type="radio" name="options" id="away">' + e.awayTeam;
+                match += '</label>';
+                match += '<span class="badge badge-secondary">@ ' + e.ground + '</span>';
+                match += '</div>';
+
+                $("#divMatches").append(match);
+            });
+        }
+    });
+});
+
 function selectYearAJAX() {
     $.ajax({
         url: "/rounds/year/" + $("#selectYear").val(),
@@ -31,7 +62,7 @@ function selectYearAJAX() {
                 paginationPreliminary += '<ul class="pagination">';
                 paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
                 data.preliminary.forEach(e => {
-                    paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">' + e + '</a></li>';
+                    paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event)">' + e + '</a></li>';
                 });
                 paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">Next</a></li>';
                 paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
@@ -45,7 +76,7 @@ function selectYearAJAX() {
             paginationHA += '<ul class="pagination">';
             paginationHA += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
             data.HA.forEach(e => {
-                paginationHA += '<li class="page-item"><a class="page-link" href="#">' + e + '</a></li>';
+                paginationHA += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event)">' + e + '</a></li>';
             });
             paginationHA += '<li class="page-item"><a class="page-link" href="#">Next</a></li>';
             paginationHA += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
@@ -59,7 +90,7 @@ function selectYearAJAX() {
                 paginationFinals += '<ul class="pagination">';
                 paginationFinals += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
                 data.finals.forEach(e => {
-                    paginationFinals += '<li class="page-item"><a class="page-link" href="#">' + e + '</a></li>';
+                    paginationFinals += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event)">' + e + '</a></li>';
                 });
                 paginationFinals += '<li class="page-item"><a class="page-link" href="#">Next</a></li>';
                 paginationFinals += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
@@ -69,4 +100,42 @@ function selectYearAJAX() {
             }
         }
     });
-}
+};
+
+function drawMatches(event) {
+    var e = event.target;
+    console.log(e);
+
+    $.ajax({
+        url: "/matches/year/" + $("#selectYear").val() + "/round/" + e.text,
+        method: "GET",
+        beforeSend: function() {
+            $("#divMatches").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
+        },
+        success: function(data) {
+            $("#divMatches").html("");
+
+            data.forEach(e => {
+                var match = "";
+                match += '<div class="btn-group-toggle mb-2" data-toggle="buttons">';
+                match += '<label class="btn btn-outline-primary mr-3">';
+                match += '<input type="radio" name="options" id="home">' + e.homeTeam;
+                if (e.matchStatus != "") {
+                    match += '<span class="ml-2 badge badge-secondary">' + e.homePoints + '</span>';
+                }
+                match += '</label>';
+                match += '<span class="mr-3">v</span>';
+                match += '<label class="btn btn-outline-primary mr-3">';
+                match += '<input type="radio" name="options" id="away">' + e.awayTeam;
+                if (e.matchStatus != "") {
+                    match += '<span class="ml-2 badge badge-secondary">' + e.awayPoints + '</span>';
+                }
+                match += '</label>';
+                match += '<span class="badge badge-secondary">@ ' + e.ground + '</span>';
+                match += '</div>';
+
+                $("#divMatches").append(match);
+            });
+        }
+    });
+};
