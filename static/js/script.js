@@ -62,7 +62,7 @@ function selectYearAJAX() {
                 paginationPreliminary += '<ul class="pagination">';
                 paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
                 data.preliminary.forEach(e => {
-                    paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event)">' + e + '</a></li>';
+                    paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event.target.text)">' + e + '</a></li>';
                 });
                 paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">Next</a></li>';
                 paginationPreliminary += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
@@ -76,7 +76,7 @@ function selectYearAJAX() {
             paginationHA += '<ul class="pagination">';
             paginationHA += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
             data.HA.forEach(e => {
-                paginationHA += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event)">' + e + '</a></li>';
+                paginationHA += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event.target.text)">' + e + '</a></li>';
             });
             paginationHA += '<li class="page-item"><a class="page-link" href="#">Next</a></li>';
             paginationHA += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
@@ -90,7 +90,7 @@ function selectYearAJAX() {
                 paginationFinals += '<ul class="pagination">';
                 paginationFinals += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
                 data.finals.forEach(e => {
-                    paginationFinals += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event)">' + e + '</a></li>';
+                    paginationFinals += '<li class="page-item"><a class="page-link" href="#" id="roundSelector" onclick="drawMatches(event.target.text)">' + e + '</a></li>';
                 });
                 paginationFinals += '<li class="page-item"><a class="page-link" href="#">Next</a></li>';
                 paginationFinals += '<li class="page-item"><a class="page-link" href="#">Current</a></li>';
@@ -102,12 +102,9 @@ function selectYearAJAX() {
     });
 };
 
-function drawMatches(event) {
-    var e = event.target;
-    console.log(e);
-
+function drawMatches(round) {
     $.ajax({
-        url: "/matches/year/" + $("#selectYear").val() + "/round/" + e.text,
+        url: "/matches/year/" + $("#selectYear").val() + "/round/" + round,
         method: "GET",
         beforeSend: function() {
             $("#divMatches").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
