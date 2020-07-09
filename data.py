@@ -20,7 +20,7 @@ class MatchData():
 
         return
 
-    def get_rounds_by_year(self, year):
+    def get_rounds(self, year):
         ha = []
         preliminary = []
         finals = []

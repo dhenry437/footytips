@@ -20,8 +20,8 @@ def refresh_data():
     return resp
 
 @app.route('/rounds/year/<year>')
-def get_rounds_by_year(year):
-    dump = md.get_rounds_by_year(year)
+def get_rounds(year):
+    dump = md.get_rounds(year)
 
     resp = Response(dump)
     resp.content_type = "application/json"
