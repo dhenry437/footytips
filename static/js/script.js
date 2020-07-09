@@ -137,6 +137,12 @@ function drawMatches(round) {
     });
 };
 
+// +------------------------=--+
+// |                           |
+// |    Pagination Controls    |
+// |                           |
+// +--------------------------=+
+
 function paginationActivate(e) {
     // Deactivate all
     $('#divRounds').find('li').removeClass('active');
