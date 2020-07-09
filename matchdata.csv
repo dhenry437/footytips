@@ -1,4 +1,5 @@
-FanFooty draw ID,year,competition,round,gametime (AET),day,home team,away team,ground,timeslot,TV coverage,home supergoals,home goals,home behinds,home points,away supergoals,away goals,away behinds,away points,match status"1006","1993","HA","1","1993-03-26 20:08:00","Friday","Western Bulldogs","Collingwood","MCG","N","","","13","17","95","","17","13","115"," Full Time"
+FanFooty-draw-ID,year,competition,round,gametime-(AET),day,home-team,away-team,ground,timeslot,TV-coverage,home-supergoals,home-goals,home-behinds,home-points,away-supergoals,away-goals,away-behinds,away-points,match-status
+"1006","1993","HA","1","1993-03-26 20:08:00","Friday","Western Bulldogs","Collingwood","MCG","N","","","13","17","95","","17","13","115"," Full Time"
 "1000","1993","HA","1","1993-03-27 14:00:00","Saturday","North Melbourne","Brisbane Bears","MCG","D","","","24","22","166","","22","11","143"," Full Time"
 "1001","1993","HA","1","1993-03-27 14:00:00","Saturday","Carlton","Fitzroy","Princes Park","D","","","17","10","112","","17","16","118"," Full Time"
 "1002","1993","HA","1","1993-03-27 14:00:00","Saturday","Hawthorn","Melbourne","Waverley","D","","","13","15","93","","11","4","70"," Full Time"

@@ -6,7 +6,7 @@ class MatchData():
     df = 'matchdata.csv'
 
     def fetch_data(self):
-        csvHeader = "FanFooty draw ID,year,competition,round,gametime (AET),day,home team,away team,ground,timeslot,TV coverage,home supergoals,home goals,home behinds,home points,away supergoals,away goals,away behinds,away points,match status"
+        csvHeader = "FanFooty-draw-ID,year,competition,round,gametime-(AET),day,home-team,away-team,ground,timeslot,TV-coverage,home-supergoals,home-goals,home-behinds,home-points,away-supergoals,away-goals,away-behinds,away-points,match-status\n"
         
         # Get data from URL
         url = 'http://www.fanfooty.com.au/resource/draw.php'
@@ -59,5 +59,30 @@ class MatchData():
 
 
             dump = json.dumps({"preliminary": preliminary, "HA": ha, "finals": finals})
+
+        return dump
+
+    def get_matches(self, year, round):
+        matches = []
+
+        # Rewrite this peice of shit, possibly an array of rounds (competitions)
+        if round == "EF and QF" or round == "QF and EF":
+            with open(self.df) as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    if row['year'] == year and (row['round'] == round or row['competition'] == "EF" or row['competition'] == "QF"):
+                        matches.append(row)
+
+            dump = json.dumps(matches)
+
+            return dump
+            
+        with open(self.df) as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                if row['year'] == year and (row['round'] == round or row['competition'] == round):
+                    matches.append(row)
+
+        dump = json.dumps(matches)
 
         return dump
