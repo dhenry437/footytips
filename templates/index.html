@@ -17,46 +17,29 @@
 
 <nav class="navbar navbar-light bg-light d-flex justify-content-between">
     <a class="navbar-brand" href="#">Footy Tips</a>
-    <button class="btn btn-outline-success">Refresh Data</button>
+    <button class="btn btn-outline-success" id="btnRefreshData">Refresh Data</button>
 </nav>
 
 <body>
     <div class="card m-3">
         <div class="card-header d-flex justify-content-between">
             <span class="align-middle">Round</span>
-            <select class="form-control form-control-sm col-2">
+            <select class="form-control form-control-sm col-2" id="selectYear">
                 {% for year in range(1993, 2021)%}
                 {% if year == 2020 %}
-                <option selected>{{ year }}</option>
+                <option value="{{ year }}">{{ year }}</option>
                 {% else %}
-                <option>{{ year }}</option>
+                <option value="{{ year }}">{{ year }}</option>
                 {% endif %}
                 {% endfor %}
             </select>
         </div>
-        <div class="card-body pb-0">
-            <p class="card-text">Home Away</p>
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                {% for i in range(1, 25)%}
-                <li class="page-item"><a class="page-link" href="#">{{ i }}</a></li>
-                {% endfor %}
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                <li class="page-item"><a class="page-link" href="#">Current</a></li>
-            </ul>
-            <p class="card-text">Finals</p>
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">Elimination</a></li>
-                <li class="page-item active"><a class="page-link" href="#">P1</a></li>
-                <li class="page-item"><a class="page-link" href="#">P2</a></li>
-                <li class="page-item"><a class="page-link" href="#">P3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Quater</a></li>
-                <li class="page-item"><a class="page-link" href="#">Semi</a></li>
-                <li class="page-item"><a class="page-link" href="#">Grand</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                <li class="page-item"><a class="page-link" href="#">Current</a></li>
-            </ul>
+        <div class="card-body pb-0" id="divRounds">
+            <div class="alert alert-secondary">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -111,24 +94,6 @@
             <button class="btn btn-primary">Send</button>
         </div>
     </div>
-
-    <!-- Start email confirmation toast -->
-    <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-        <div class="toast" style="position: absolute; top: 0; right: 0;">
-            <div class="toast-header">
-                <img src="..." class="rounded mr-2" alt="...">
-                <strong class="mr-auto">Footy Tips</strong>
-                <small>Just now</small>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="toast-body">
-                Email sent
-            </div>
-        </div>
-    </div>
-    <!-- End email confirmation toast -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
