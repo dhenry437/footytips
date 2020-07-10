@@ -1,6 +1,7 @@
 import requests
 import json
 import csv
+import datetime
 
 class MatchData():
     df = 'matchdata.csv'
@@ -20,13 +21,16 @@ class MatchData():
 
         return
 
-    def get_rounds_by_year(self, year):
+        currentDate = datetime.datetime.now()
+    def get_rounds(self, year):
+
         ha = []
         preliminary = []
         finals = []
 
         currentRound = 0
         currentComp = None
+        cRound = -1
 
         with open(self.df) as csvfile:
             reader = csv.DictReader(csvfile)
@@ -57,7 +61,10 @@ class MatchData():
                         currentRound = int(row['round'])
                         currentComp = row['competition']
 
+                # print("DEBUG: row['game time'] read as " + datetime.datetime.strptime(row['gametime'],"%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d %H:%M:%S"))
+                if datetime.datetime.strptime(row['gametime'],"%Y-%m-%d %H:%M:%S") < currentDate:
+                    cRound = str(currentRound)
 
-            dump = json.dumps({"preliminary": preliminary, "HA": ha, "finals": finals})
+            dump = json.dumps({"preliminary": preliminary, "HA": ha, "finals": finals, "currentRound": cRound})
 
         return dump

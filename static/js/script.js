@@ -1,3 +1,8 @@
+"use strict";
+
+var currentRound = "";
+var currentYear = 2020;
+
 $("#btnRefreshData").click(function() {
     $.ajax({
         url: "/refreshdata",
@@ -23,6 +28,9 @@ function selectYearAJAX() {
             $("#divRounds").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
         },
         success: function(data) {
+            currentRound = data.currentRound;
+            console.log(currentRound);
+
             $("#divRounds").html("");
 
             if (data.preliminary.length != 0) {
