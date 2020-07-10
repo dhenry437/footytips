@@ -60,7 +60,6 @@ function selectYearAJAX() {
         },
         success: function(data) {
             currentRound = data.currentRound;
-            console.log(currentRound);
 
             $("#divRounds").html("");
 
@@ -224,4 +223,19 @@ function paginationCurrent() {
 $('#matchesClear').click(function() {
     // Deactivate all
     $('#divMatches').find('label').removeClass('active');
+});
+
+$('#matchesRandom').click(function() {
+    console.log("DEBUG: matchesRandom");
+    // Deactivate all
+    $('#divMatches').find('label').removeClass('active');
+
+    $('#divMatches').find('div.btn-group-toggle').each(function() {
+        if (Math.random() >= 0.5) {
+            $(this).children('label:first').addClass('active');
+        }
+        else {
+            $(this).children('label:last').addClass('active');
+        }
+    });
 });
