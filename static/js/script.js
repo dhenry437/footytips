@@ -150,11 +150,11 @@ function drawMatches(round) {
     });
 };
 
-// +------------------------=--+
+// +---------------------------+
 // |                           |
 // |    Pagination Controls    |
 // |                           |
-// +--------------------------=+
+// +---------------------------+
 
 function paginationActivate(e) {
     // Deactivate all
@@ -214,3 +214,14 @@ function paginationCurrent() {
 
 // Select current on load
 //     Called in selectYearAJAX to ensure proper loading oder
+
+// +----------------------+
+// |                      |
+// |    Match Controls    |
+// |                      |
+// +----------------------+
+
+$('#matchesClear').click(function() {
+    // Deactivate all
+    $('#divMatches').find('label').removeClass('active');
+});
