@@ -21,8 +21,8 @@ class MatchData():
 
         return
 
-        currentDate = datetime.datetime.now()
     def get_rounds(self, year):
+        currentDate = datetime.datetime.now()
 
         ha = []
         preliminary = []
