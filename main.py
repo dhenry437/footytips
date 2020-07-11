@@ -41,12 +41,12 @@ def get_matches(year, round):
 
 @app.route('/sendemail', methods=['POST'])
 def send_email():
-    # print("DEBUG: toEmail = " + request.form['toEmail'])
-    # print("DEBUG: fromEmail = " + request.form['fromEmail'])
-    # print("DEBUG: text = " + request.form['text'])
-    # print("DEBUG: html = " + request.form['html'])
-    # print("DEBUG: name = " + request.form['name'])
-    # print("DEBUG: round = " + request.form['round'])
+    print("DEBUG: toEmail = " + request.form['toEmail'])
+    print("DEBUG: fromEmail = " + request.form['fromEmail'])
+    print("DEBUG: text = " + request.form['text'])
+    print("DEBUG: html = " + request.form['html'])
+    print("DEBUG: name = " + request.form['name'])
+    print("DEBUG: round = " + request.form['round'])
     e.send_email(request.form["toEmail"], request.form["fromEmail"], request.form["text"], request.form["html"], request.form["name"], request.form["round"])
 
     resp = Response()
