@@ -15,7 +15,7 @@ $("#selectYear").change(function() {
 });
 
 $(document).ready(function() {
-    $("#selectYear option[value=" + currentYear +"]").prop("selected", true);
+    $("#selectYear option[value=" + currentYear + "]").prop("selected", true);
 
     selectYearAJAX();
 });
@@ -60,7 +60,6 @@ function selectYearAJAX() {
         },
         success: function(data) {
             currentRound = data.currentRound;
-            console.log(currentRound);
 
             $("#divRounds").html("");
 
@@ -150,11 +149,11 @@ function drawMatches(round) {
     });
 };
 
-// +------------------------=--+
+// +---------------------------+
 // |                           |
 // |    Pagination Controls    |
 // |                           |
-// +--------------------------=+
+// +---------------------------+
 
 function paginationActivate(e) {
     // Deactivate all
@@ -200,7 +199,7 @@ function paginationPrev() {
 
 function paginationCurrent() {
     // Get target
-    var target = $('#divRounds').find('li:contains('+ currentRound + ')').filter(function(index) { return $(this).text() == currentRound; });
+    var target = $('#divRounds').find('li:contains(' + currentRound + ')').filter(function(index) { return $(this).text() == currentRound; });
 
     // Deactivate all
     $('#divRounds').find('li').removeClass('active');
@@ -214,3 +213,97 @@ function paginationCurrent() {
 
 // Select current on load
 //     Called in selectYearAJAX to ensure proper loading oder
+
+// +----------------------+
+// |                      |
+// |    Match Controls    |
+// |                      |
+// +----------------------+
+
+$('#matchesClear').click(function() {
+    // Deactivate all
+    $('#divMatches').find('label').removeClass('active');
+});
+
+$('#matchesRandom').click(function() {
+    console.log("DEBUG: matchesRandom");
+    // Deactivate all
+    $('#divMatches').find('label').removeClass('active');
+
+    $('#divMatches').find('div.btn-group-toggle').each(function() {
+        if (Math.random() >= 0.5) {
+            $(this).children('label:first').addClass('active');
+        } else {
+            $(this).children('label:last').addClass('active');
+        }
+    });
+});
+
+// +-------------+
+// |             |
+// |    Email    |
+// |             |
+// +-------------+
+
+$('#sendEmail').click(function() {
+    var messageText = "";
+    var messageHTML = "";
+    var round = -1;
+    round = $('#divRounds').find('li.active').children('a').text();
+    var name = $('#name').val();
+
+    messageText += name + "'s Round " + round + " Footy Tips\n";
+    messageText += "\n";
+    $('#divMatches').find('div.btn-group-toggle').each(function() {
+        if ($(this).children('label:first').hasClass('active')) {
+            messageText += "**" + $(this).children('label:first').text().replace(/[0-9]/g, '') + "**";
+        } else {
+            messageText += $(this).children('label:first').text().replace(/[0-9]/g, '');
+        }
+        messageText += " v "
+        if ($(this).children('label:last').hasClass('active')) {
+            messageText += "**" + $(this).children('label:last').text().replace(/[0-9]/g, '') + "**" + "\n";
+        } else {
+            messageText += $(this).children('label:last').text().replace(/[0-9]/g, '') + "\n";
+        }
+    });
+    messageText += "\n";
+    messageText += "Created using Footy Tips v2\n";
+    messageText += "www.footytipsv2.com.au\n";
+
+    messageHTML += "<html>\n";
+    messageHTML += "<body>\n";
+    messageHTML += "<p>" + name + "'s Round " + round + " Footy Tips</p>\n";
+    $('#divMatches').find('div.btn-group-toggle').each(function() {
+        if ($(this).children('label:first').hasClass('active')) {
+            messageHTML += "<b>" + $(this).children('label:first').text().replace(/[0-9]/g, '') + "</b>";
+        } else {
+            messageHTML += $(this).children('label:first').text().replace(/[0-9]/g, '');
+        }
+        messageHTML += " v "
+        if ($(this).children('label:last').hasClass('active')) {
+            messageHTML += "<b>" + $(this).children('label:last').text().replace(/[0-9]/g, '') + "</b>";
+        } else {
+            messageHTML += $(this).children('label:last').text().replace(/[0-9]/g, '');
+        }
+        messageHTML += "<br>\n"
+    });
+    messageHTML += "<br>\n";
+    messageHTML += "<p>Created using Footy Tips v2 <br>\n";
+    messageHTML += "<a>www.footytipsv2.com.au</a></p>\n";
+    messageHTML += "<body>\n";
+    messageHTML += "<html>\n";
+
+    $.ajax({
+        url: "/sendemail",
+        method: "POST",
+        data: {
+            "toEmail": $('#toEmail').val(),
+            "fromEmail": $('#fromEmail').val(),
+            "text": messageText,
+            "html": messageHTML,
+            "name": name,
+            "round": round
+        }
+    })
+})
