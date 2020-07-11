@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, Response
 
 from data import MatchData
+from emailer import Emailer
 
 app = Flask(__name__)
 app.config['FLASK_APP'] = "main.py"
 
 md = MatchData()
+e = Emailer()
 
 @app.route('/')
 def root():
@@ -34,6 +36,20 @@ def get_matches(year, round):
 
     resp = Response(dump)
     resp.content_type = "application/json"
+    resp.status_code = 200
+    return resp
+
+@app.route('/sendemail', methods=['POST'])
+def send_email():
+    # print("DEBUG: toEmail = " + request.form['toEmail'])
+    # print("DEBUG: fromEmail = " + request.form['fromEmail'])
+    # print("DEBUG: text = " + request.form['text'])
+    # print("DEBUG: html = " + request.form['html'])
+    # print("DEBUG: name = " + request.form['name'])
+    # print("DEBUG: round = " + request.form['round'])
+    e.send_email(request.form["toEmail"], request.form["fromEmail"], request.form["text"], request.form["html"], request.form["name"], request.form["round"])
+
+    resp = Response()
     resp.status_code = 200
     return resp
 

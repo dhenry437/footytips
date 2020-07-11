@@ -66,19 +66,23 @@
         <div class="card-body">
             <form>
                 <div class="form-group">
-                    <label for="fromEmail">From</label>
-                    <input type="email" class="form-control" id="fromEmail" aria-describedby="fromEmailHelp" placeholder="name@example.com">
-                    <small id="fromEmailHelp" class="form-text text-muted">The email will appear to the recipent as from
-                        this address</small>
+                    <label for="toEmail">Your Name</label>
+                    <input type="email" class="form-control" id="name" placeholder="John Doe">
                 </div>
                 <div class="form-group">
                     <label for="toEmail">To</label>
                     <input type="email" class="form-control" id="toEmail" placeholder="name@example.com">
                 </div>
+                <div class="form-group">
+                    <label for="fromEmail">From</label>
+                    <input type="email" class="form-control" id="fromEmail" aria-describedby="fromEmailHelp" placeholder="name@example.com">
+                    <small id="fromEmailHelp" class="form-text text-muted">The email will appear to the recipent as from
+                        this address</small>
+                </div>
             </form>
         </div>
         <div class="card-footer">
-            <button class="btn btn-primary">Send</button>
+            <button class="btn btn-primary" id="sendEmail">Send</button>
         </div>
     </div>
 

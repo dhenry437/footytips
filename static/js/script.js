@@ -15,7 +15,7 @@ $("#selectYear").change(function() {
 });
 
 $(document).ready(function() {
-    $("#selectYear option[value=" + currentYear +"]").prop("selected", true);
+    $("#selectYear option[value=" + currentYear + "]").prop("selected", true);
 
     selectYearAJAX();
 });
@@ -199,7 +199,7 @@ function paginationPrev() {
 
 function paginationCurrent() {
     // Get target
-    var target = $('#divRounds').find('li:contains('+ currentRound + ')').filter(function(index) { return $(this).text() == currentRound; });
+    var target = $('#divRounds').find('li:contains(' + currentRound + ')').filter(function(index) { return $(this).text() == currentRound; });
 
     // Deactivate all
     $('#divRounds').find('li').removeClass('active');
@@ -233,9 +233,51 @@ $('#matchesRandom').click(function() {
     $('#divMatches').find('div.btn-group-toggle').each(function() {
         if (Math.random() >= 0.5) {
             $(this).children('label:first').addClass('active');
-        }
-        else {
+        } else {
             $(this).children('label:last').addClass('active');
         }
     });
 });
+
+// +-------------+
+// |             |
+// |    Email    |
+// |             |
+// +-------------+
+
+$('#sendEmail').click(function() {
+    var messageText = "";
+    var messageHTML = "";
+    var round = -1;
+    round = $('#divRounds').find('li.active').children('a').text();
+    var name = $('#name').val();
+
+    messageText += name + "'s Round " + round + " Footy Tips\n";
+    messageText += "\n";
+    messageText += "\n";
+    messageText += "Created using Footy Tips v2\n";
+    messageText += "www.footytipsv2.com.au\n";
+
+    messageHTML += "<html>\n";
+    messageHTML += "    <body>\n";
+    messageHTML += "        <p>" + name + "'s Round " + round + " Footy Tips</p>\n";
+    messageHTML += "        <br>\n";
+    messageHTML += "        <p>Created using Footy Tips v2 <br>\n";
+    messageHTML += "        <a>www.footytipsv2.com.au</a></p>\n";
+    messageHTML += "    <body>\n";
+    messageHTML += "<html>\n";
+
+
+    $.ajax({
+        url: "/sendemail",
+        method: "POST",
+        data: {
+            "toEmail": $('#toEmail').val(),
+            "fromEmail": $('#fromEmail').val(),
+            "text": messageText,
+            "html": messageHTML,
+            "name": name,
+            "round": round
+        }
+    })
+})
