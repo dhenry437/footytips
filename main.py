@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, Response
+from waitress import serve
 
 from data import MatchData
 from emailer import Emailer
@@ -53,5 +54,7 @@ def send_email():
     resp.status_code = 200
     return resp
 
-if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080, debug=True)
+# if __name__ == '__main__':
+#     app.run(host='127.0.0.1', port=8080, debug=True)
+
+serve(app)
