@@ -31,6 +31,7 @@ class MatchData():
         currentRound = 0
         currentComp = None
         cRound = -1
+        cRoundBeenSet = False
 
         with open(self.df) as csvfile:
             reader = csv.DictReader(csvfile)
@@ -62,8 +63,9 @@ class MatchData():
                         currentComp = row['competition']
 
                 # print("DEBUG: row['game time'] read as " + datetime.datetime.strptime(row['gametime'],"%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d %H:%M:%S"))
-                if datetime.datetime.strptime(row['gametime'],"%Y-%m-%d %H:%M:%S") < currentDate:
+                if datetime.datetime.strptime(row['gametime'],"%Y-%m-%d %H:%M:%S") > currentDate and not cRoundBeenSet:
                     cRound = str(currentRound)
+                    cRoundBeenSet = True
 
             dump = json.dumps({"preliminary": preliminary, "HA": ha, "finals": finals, "currentRound": cRound})
 
