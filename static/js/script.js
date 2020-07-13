@@ -277,7 +277,7 @@ $('#sendEmail').click(function() {
     var messageText = "";
     var messageHTML = "";
     var round = -1;
-    round = $('#divRounds').find('li.active').children('a').text();
+    round = $('#divRounds').find('li.active').children('a').text() || $("#selectRounds").val();
     var name = $('#name').val();
 
     messageText += name + "'s Round " + round + " Footy Tips\n";
