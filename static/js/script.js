@@ -68,13 +68,13 @@ function selectYearAJAX() {
                 var selectRounds = "";
                 selectRounds += '<select class="form-control mb-3" onchange="drawMatches(this.value)" id="selectRounds">';
                 data.preliminary.forEach(e => {
-                    selectRounds += '<option value="' + e + '">'+ e + '</option>';
+                    selectRounds += '<option value="' + e + '">' + e + '</option>';
                 });
                 data.HA.forEach(e => {
-                    selectRounds += '<option value="' + e + '">'+ e + '</option>';
+                    selectRounds += '<option value="' + e + '">' + e + '</option>';
                 });
                 data.finals.forEach(e => {
-                    selectRounds += '<option value="' + e + '">'+ e + '</option>';
+                    selectRounds += '<option value="' + e + '">' + e + '</option>';
                 });
                 selectRounds += '</select>';
 
@@ -86,8 +86,7 @@ function selectYearAJAX() {
 
                     drawMatches(currentRound);
                 }
-            }
-            else {
+            } else {
                 $("#divRounds").html("");
 
                 if (data.preliminary.length != 0) {
@@ -195,34 +194,38 @@ function paginationNext() {
     // Get current active
     var current = $('#divRounds').find('li.active');
 
-    // Deactivate all
-    $('#divRounds').find('li').removeClass('active');
+    if (current.next('#roundSelector').length != 0) {
+        // Deactivate all
+        $('#divRounds').find('li').removeClass('active');
 
-    // Get next
-    var next = current.next('#roundSelector');
+        // Get next
+        var next = current.next('#roundSelector');
 
-    // Activate next
-    next.addClass('active');
+        // Activate next
+        next.addClass('active');
 
-    // Call drawMatches
-    drawMatches(next.text());
+        // Call drawMatches
+        drawMatches(next.text());
+    }
 }
 
 function paginationPrev() {
     // Get current active
     var current = $('#divRounds').find('li.active');
 
-    // Deactivate all
-    $('#divRounds').find('li').removeClass('active');
+    if (current.prev('#roundSelector').length != 0) {
+        // Deactivate all
+        $('#divRounds').find('li').removeClass('active');
 
-    // Get previous
-    var prev = current.prev('#roundSelector');
+        // Get previous
+        var prev = current.prev('#roundSelector');
 
-    // Activate previous
-    prev.addClass('active');
+        // Activate previous
+        prev.addClass('active');
 
-    // Call drawMatches
-    drawMatches(prev.text());
+        // Call drawMatches
+        drawMatches(prev.text());
+    }
 }
 
 function paginationCurrent() {
