@@ -1,1 +1,2 @@
-footytips
+# Foooty Tips
+Footy tipping application
