@@ -61,54 +61,82 @@ function selectYearAJAX() {
         success: function(data) {
             currentRound = data.currentRound;
 
-            $("#divRounds").html("");
+            if ($("#divRoundsMobile").css('display') == "block") {
+                console.log('$("#divRoundMobile").display == "block"');
+                $("#divRoundsMobile").html("");
 
-            if (data.preliminary.length != 0) {
-                var paginationPreliminary = "";
-                paginationPreliminary += '<p class="card-text">Preliminary</p>';
-                paginationPreliminary += '<ul class="pagination">';
-                paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationPrev()">Previous</a></li>';
+                var selectRounds = "";
+                selectRounds += '<select class="form-control mb-3" onchange="drawMatches(this.value)" id="selectRounds">';
                 data.preliminary.forEach(e => {
-                    paginationPreliminary += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
+                    selectRounds += '<option value="' + e + '">'+ e + '</option>';
                 });
-                paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
-                paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
-                paginationPreliminary += '</ul>';
-
-                $("#divRounds").append(paginationPreliminary);
-            }
-
-            var paginationHA = "";
-            paginationHA += '<p class="card-text">Home Away</p>';
-            paginationHA += '<ul class="pagination">';
-            paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationPrev()">Previous</a></li>';
-            data.HA.forEach(e => {
-                paginationHA += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
-            });
-            paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
-            paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
-            paginationHA += '</ul>';
-
-            $("#divRounds").append(paginationHA);
-
-            if (data.finals.length != 0) {
-                var paginationFinals = "";
-                paginationFinals += '<p class="card-text">Finals</p>';
-                paginationFinals += '<ul class="pagination">';
-                paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationPrev()">Previous</a></li>';
+                data.HA.forEach(e => {
+                    selectRounds += '<option value="' + e + '">'+ e + '</option>';
+                });
                 data.finals.forEach(e => {
-                    paginationFinals += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
+                    selectRounds += '<option value="' + e + '">'+ e + '</option>';
                 });
-                paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
-                paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
-                paginationFinals += '</ul>';
+                selectRounds += '</select>';
 
-                $("#divRounds").append(paginationFinals);
+                $("#divRoundsMobile").append(selectRounds);
+
+                // If current year select current round
+                if ($("#selectYear").val() == currentYear) {
+                    $("#selectRounds option[value=" + currentRound + "]").prop("selected", true);
+
+                    drawMatches(currentRound);
+                }
             }
+            else {
+                $("#divRounds").html("");
 
-            // If current year select current round
-            if ($("#selectYear").val() == currentYear) {
-                paginationCurrent();
+                if (data.preliminary.length != 0) {
+                    var paginationPreliminary = "";
+                    paginationPreliminary += '<p class="card-text">Preliminary</p>';
+                    paginationPreliminary += '<ul class="pagination">';
+                    paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationPrev()">Previous</a></li>';
+                    data.preliminary.forEach(e => {
+                        paginationPreliminary += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
+                    });
+                    paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
+                    paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
+                    paginationPreliminary += '</ul>';
+
+                    $("#divRounds").append(paginationPreliminary);
+                }
+
+                var paginationHA = "";
+                paginationHA += '<p class="card-text">Home Away</p>';
+                paginationHA += '<ul class="pagination">';
+                paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationPrev()">Previous</a></li>';
+                data.HA.forEach(e => {
+                    paginationHA += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
+                });
+                paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
+                paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
+                paginationHA += '</ul>';
+
+                $("#divRounds").append(paginationHA);
+
+                if (data.finals.length != 0) {
+                    var paginationFinals = "";
+                    paginationFinals += '<p class="card-text">Finals</p>';
+                    paginationFinals += '<ul class="pagination">';
+                    paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationPrev()">Previous</a></li>';
+                    data.finals.forEach(e => {
+                        paginationFinals += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
+                    });
+                    paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
+                    paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
+                    paginationFinals += '</ul>';
+
+                    $("#divRounds").append(paginationFinals);
+                }
+
+                // If current year select current round
+                if ($("#selectYear").val() == currentYear) {
+                    paginationCurrent();
+                }
             }
         }
     });
@@ -249,7 +277,7 @@ $('#sendEmail').click(function() {
     var messageText = "";
     var messageHTML = "";
     var round = -1;
-    round = $('#divRounds').find('li.active').children('a').text();
+    round = $('#divRounds').find('li.active').children('a').text() || $("#selectRounds").val();
     var name = $('#name').val();
 
     messageText += name + "'s Round " + round + " Footy Tips\n";
