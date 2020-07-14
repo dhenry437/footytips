@@ -6,7 +6,35 @@ var currentYear = 2020;
 $("#btnRefreshData").click(function() {
     $.ajax({
         url: "/refreshdata",
-        method: "GET"
+        method: "GET",
+        beforeSend: function() {
+            $.toast({
+                text: "Refreshing...", // Text that is to be shown in the toast
+                heading: 'Refresh Data', // Optional heading to be shown on the toast
+                icon: 'info', // Type of toast icon
+                showHideTransition: 'fade', // fade, slide or plain
+                allowToastClose: true, // Boolean value true or false
+                hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                textAlign: 'left',  // Text alignment i.e. left, right or center
+                loader: false,  // Whether to show loader or not. True by default
+            });
+        },
+        success: function() {
+            $.toast({
+                text: "Done", // Text that is to be shown in the toast
+                heading: 'Refresh Data', // Optional heading to be shown on the toast
+                icon: 'success', // Type of toast icon
+                showHideTransition: 'fade', // fade, slide or plain
+                allowToastClose: true, // Boolean value true or false
+                hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                textAlign: 'left',  // Text alignment i.e. left, right or center
+                loader: false,  // Whether to show loader or not. True by default
+            });
+        }
     })
 });
 
@@ -335,6 +363,34 @@ $('#sendEmail').click(function() {
             "html": messageHTML,
             "name": name,
             "round": round
+        },
+        beforeSend: function() {
+            $.toast({
+                text: "Sending...", // Text that is to be shown in the toast
+                heading: 'Email', // Optional heading to be shown on the toast
+                icon: 'info', // Type of toast icon
+                showHideTransition: 'fade', // fade, slide or plain
+                allowToastClose: true, // Boolean value true or false
+                hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                textAlign: 'left',  // Text alignment i.e. left, right or center
+                loader: false,  // Whether to show loader or not. True by default
+            });
+        },
+        success: function() {
+            $.toast({
+                text: "Email sent to " + $('#toEmail').val(), // Text that is to be shown in the toast
+                heading: 'Email', // Optional heading to be shown on the toast
+                icon: 'success', // Type of toast icon
+                showHideTransition: 'fade', // fade, slide or plain
+                allowToastClose: true, // Boolean value true or false
+                hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                textAlign: 'left',  // Text alignment i.e. left, right or center
+                loader: false,  // Whether to show loader or not. True by default
+            });
         }
     })
 })
