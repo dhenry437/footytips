@@ -279,6 +279,19 @@ $('#sendEmail').click(function() {
     var round = -1;
     round = $('#divRounds').find('li.active').children('a').text() || $("#selectRounds").val();
     var name = $('#name').val();
+    if ($('#fromEmail').val() != "") {
+        var fromEmail = $('#fromEmail').val();
+    }
+    else {
+        fromEmail = $('#fromEmail').prop('placeholder');
+    }
+    
+    // Validate
+    var form = $(this.form)[0]
+    if (form.checkValidity() === false) {
+        form.classList.add('was-validated');
+        return;
+    }
 
     messageText += name + "'s Round " + round + " Footy Tips\n";
     messageText += "\n";
@@ -318,7 +331,7 @@ $('#sendEmail').click(function() {
     });
     messageHTML += "<br>\n";
     messageHTML += "<p>Created using Footy Tips v2 <br>\n";
-    messageHTML += "<a>www.footytipsv2.com.au</a></p>\n";
+    messageHTML += "<a href='footytipsv2.ddns.net'>footytipsv2.ddns.net</a></p>\n";
     messageHTML += "<body>\n";
     messageHTML += "<html>\n";
 
@@ -327,7 +340,7 @@ $('#sendEmail').click(function() {
         method: "POST",
         data: {
             "toEmail": $('#toEmail').val(),
-            "fromEmail": $('#fromEmail').val(),
+            "fromEmail": fromEmail,
             "text": messageText,
             "html": messageHTML,
             "name": name,
