@@ -1,0 +1,6 @@
+#toast {
+    position: absolute;
+    z-index: 111;
+    right: 0.5rem;
+    top: 0.5rem;
+}
