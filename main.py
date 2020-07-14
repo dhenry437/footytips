@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, Response
 from waitress import serve
+import sys
 
 from data import MatchData
 from emailer import Emailer
@@ -54,7 +55,11 @@ def send_email():
     resp.status_code = 200
     return resp
 
-if __name__ == '__main__':
+if len(sys.argv) > 1:
+    print("len(sys.argv) > 1")
+    if sys.argv[1] == "live":
+        serve(app)
+    else:
+        app.run(host='127.0.0.1', port=8080, debug=True)
+else:
     app.run(host='127.0.0.1', port=8080, debug=True)
-
-# serve(app)
