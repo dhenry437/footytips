@@ -58,8 +58,8 @@ def send_email():
     # print("DEBUG: response = " + request.form['g-recaptcha-response'])
 
     if verify_reCAPTCHA(request.form['g-recaptcha-response']):
-        # e.send_email(request.form["toEmail"], request.form["fromEmail"], request.form["text"],
-                    # request.form["html"], request.form["name"], request.form["round"])
+        e.send_email(request.form["toEmail"], request.form["fromEmail"], request.form["text"],
+                    request.form["html"], request.form["name"], request.form["round"])
 
         resp = Response()
         resp.status_code = 200
