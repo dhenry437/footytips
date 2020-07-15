@@ -344,7 +344,8 @@ $('#sendEmail').click(function() {
             "text": messageText,
             "html": messageHTML,
             "name": name,
-            "round": round
+            "round": round,
+            "g-recaptcha-response": grecaptcha.getResponse()
         },
         beforeSend: function() {
             $.toast({
