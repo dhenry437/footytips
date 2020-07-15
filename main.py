@@ -55,7 +55,7 @@ def send_email():
     # print("DEBUG: html = " + request.form['html'])
     # print("DEBUG: name = " + request.form['name'])
     # print("DEBUG: round = " + request.form['round'])
-    print("DEBUG: response = " + request.form['g-recaptcha-response'])
+    # print("DEBUG: response = " + request.form['g-recaptcha-response'])
 
     if verify_reCAPTCHA(request.form['g-recaptcha-response']):
         # e.send_email(request.form["toEmail"], request.form["fromEmail"], request.form["text"],
@@ -79,7 +79,7 @@ def verify_reCAPTCHA(response):
     r = requests.post(url, data=data)
     data = json.loads(r.text)
 
-    print("DEBUG: data = " + str(data))
+    # print("DEBUG: data = " + str(data))
 
     return data['success']
 
