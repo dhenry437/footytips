@@ -3,6 +3,7 @@ from waitress import serve
 import sys
 import requests
 import json
+import bcrypt
 
 from data import MatchData
 from emailer import Emailer
@@ -13,19 +14,24 @@ app.config['FLASK_APP'] = "main.py"
 md = MatchData()
 e = Emailer()
 
-
 @app.route('/')
 def root():
     return render_template('index.html')
 
 
-@app.route('/refreshdata')
+@app.route('/refreshdata', methods=['POST'])
 def refresh_data():
-    md.fetch_data()
+    # Validate password
+    if bcrypt.checkpw(request.form['input'].encode('utf-8'), '$2y$12$N4f9oueohwGzUZ9XwdPZ4ON7/QzOSmKzAD8rlbSR4r3nBMYfTZ/fi'.encode('utf-8')):
+        md.fetch_data()
 
-    resp = Response()
-    resp.status_code = 200
-    return resp
+        resp = Response()
+        resp.status_code = 200
+        return resp
+    else:
+        resp = Response()
+        resp.status_code = 401
+        return resp
 
 
 @app.route('/rounds/year/<year>')

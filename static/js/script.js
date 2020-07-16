@@ -4,9 +4,17 @@ var currentRound = "";
 var currentYear = 2020;
 
 $("#btnRefreshData").click(function() {
+    var input = prompt("Authorize");
+    if (input === null) {
+        return; //break out of the function early
+    }
+
     $.ajax({
         url: "/refreshdata",
-        method: "GET",
+        method: "POST",
+        data: {
+            input: input
+        },
         beforeSend: function() {
             $.toast({
                 text: "Refreshing...", // Text that is to be shown in the toast
@@ -17,8 +25,8 @@ $("#btnRefreshData").click(function() {
                 hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
                 stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
                 position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                textAlign: 'left',  // Text alignment i.e. left, right or center
-                loader: false,  // Whether to show loader or not. True by default
+                textAlign: 'left', // Text alignment i.e. left, right or center
+                loader: false, // Whether to show loader or not. True by default
             });
         },
         success: function() {
@@ -31,9 +39,25 @@ $("#btnRefreshData").click(function() {
                 hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
                 stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
                 position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                textAlign: 'left',  // Text alignment i.e. left, right or center
-                loader: false,  // Whether to show loader or not. True by default
+                textAlign: 'left', // Text alignment i.e. left, right or center
+                loader: false, // Whether to show loader or not. True by default
             });
+        },
+        statusCode: {
+            401: function() {
+                $.toast({
+                    text: "Invalid password", // Text that is to be shown in the toast
+                    heading: 'Refresh Data', // Optional heading to be shown on the toast
+                    icon: 'error', // Type of toast icon
+                    showHideTransition: 'fade', // fade, slide or plain
+                    allowToastClose: true, // Boolean value true or false
+                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                    position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                    textAlign: 'left', // Text alignment i.e. left, right or center
+                    loader: false, // Whether to show loader or not. True by default
+                });
+            }
         }
     })
 });
@@ -281,11 +305,10 @@ $('#sendEmail').click(function() {
     var name = $('#name').val();
     if ($('#fromEmail').val() != "") {
         var fromEmail = $('#fromEmail').val();
-    }
-    else {
+    } else {
         fromEmail = $('#fromEmail').prop('placeholder');
     }
-    
+
     // Validate
     var form = $(this.form)[0]
     if (form.checkValidity() === false) {
@@ -357,8 +380,8 @@ $('#sendEmail').click(function() {
                 hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
                 stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
                 position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                textAlign: 'left',  // Text alignment i.e. left, right or center
-                loader: false,  // Whether to show loader or not. True by default
+                textAlign: 'left', // Text alignment i.e. left, right or center
+                loader: false, // Whether to show loader or not. True by default
             });
         },
         success: function() {
@@ -371,8 +394,8 @@ $('#sendEmail').click(function() {
                 hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
                 stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
                 position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                textAlign: 'left',  // Text alignment i.e. left, right or center
-                loader: false,  // Whether to show loader or not. True by default
+                textAlign: 'left', // Text alignment i.e. left, right or center
+                loader: false, // Whether to show loader or not. True by default
             });
 
             // Reset reCAPTCHA
@@ -389,8 +412,8 @@ $('#sendEmail').click(function() {
                     hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
                     stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
                     position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                    textAlign: 'left',  // Text alignment i.e. left, right or center
-                    loader: false,  // Whether to show loader or not. True by default
+                    textAlign: 'left', // Text alignment i.e. left, right or center
+                    loader: false, // Whether to show loader or not. True by default
                 });
 
                 // Reset reCAPTCHA
