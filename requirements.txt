@@ -10,3 +10,4 @@ idna==2.10
 requests==2.24.0
 urllib3==1.25.9
 waitresss==1.4.4
+argon2-cffi==20.1.0
