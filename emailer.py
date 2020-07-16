@@ -12,8 +12,8 @@ class Emailer:
     def send_email(self, toEmail, fromEmail, text, html, name, round):        
         message = MIMEMultipart("alternative")
         message["Subject"] = name.strip() + "'s Round " + round + " Footy Tips"
-        message["From"] = toEmail
-        message["To"] = fromEmail
+        message["From"] = fromEmail
+        message["To"] = toEmail
 
         # Turn these into plain/html MIMEText objects
         part1 = MIMEText(text, "plain")
