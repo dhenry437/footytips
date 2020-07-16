@@ -5,6 +5,9 @@ var currentYear = 2020;
 
 $("#btnRefreshData").click(function() {
     var input = prompt("Authorize");
+    if (input === null) {
+        return; //break out of the function early
+    }
 
     $.ajax({
         url: "/refreshdata",
