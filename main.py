@@ -7,12 +7,14 @@ import bcrypt
 
 from data import MatchData
 from emailer import Emailer
+from odds import OddsAPI
 
 app = Flask(__name__)
 app.config['FLASK_APP'] = "main.py"
 
 md = MatchData()
-e = Emailer()
+em = Emailer()
+oa = OddsAPI()
 
 @app.route('/')
 def root():
@@ -22,7 +24,7 @@ def root():
 @app.route('/refreshdata', methods=['POST'])
 def refresh_data():
     # Validate password
-    if bcrypt.checkpw(request.form['input'].encode('utf-8'), '$2y$12$N4f9oueohwGzUZ9XwdPZ4ON7/QzOSmKzAD8rlbSR4r3nBMYfTZ/fi'.encode('utf-8')):
+    if bcrypt.checkpw(request.form['input'].encode('utf-8'), '$2y$12$ah6kkBTLOcVPyyWs3luOjOW4Lf/y3dITgza4T2GE7Kjt6zzW9yLle'.encode('utf-8')):
         md.fetch_data()
 
         resp = Response()
@@ -64,7 +66,7 @@ def send_email():
     # print("DEBUG: response = " + request.form['g-recaptcha-response'])
 
     if verify_reCAPTCHA(request.form['g-recaptcha-response']):
-        e.send_email(request.form["toEmail"], request.form["fromEmail"], request.form["text"],
+        em.send_email(request.form["toEmail"], request.form["fromEmail"], request.form["text"],
                     request.form["html"], request.form["name"], request.form["round"])
 
         resp = Response()
@@ -75,6 +77,15 @@ def send_email():
         resp.status_code = 401
         return resp
 
+@app.route('/odds/type/<type>')
+def get_odds(type):
+    dump = oa.get_odds(type)
+
+    resp = Response(dump)
+    resp.content_type = "application/json"
+    resp.status_code = 200
+    return resp
+
 def verify_reCAPTCHA(response):
     url = 'https://www.google.com/recaptcha/api/siteverify'
     data = {
@@ -84,8 +95,6 @@ def verify_reCAPTCHA(response):
 
     r = requests.post(url, data=data)
     data = json.loads(r.text)
-
-    # print("DEBUG: data = " + str(data))
 
     return data['success']
 
