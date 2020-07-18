@@ -175,14 +175,14 @@ function drawMatches(round) {
             data.forEach(e => {
                 var match = "";
                 match += '<div class="btn-group-toggle mb-2" data-toggle="buttons">';
-                match += '<label class="btn btn-outline-primary mr-3">';
+                match += '<label class="btn btn-outline-primary mr-3 teamSelector">';
                 match += '<input type="radio" name="options" id="home">' + e.homeTeam;
                 if (e.matchStatus != "") {
                     match += '<span class="ml-2 badge badge-secondary">' + e.homePoints + '</span>';
                 }
                 match += '</label>';
                 match += '<span class="mr-3">v</span>';
-                match += '<label class="btn btn-outline-primary mr-3">';
+                match += '<label class="btn btn-outline-primary mr-3 teamSelector">';
                 match += '<input type="radio" name="options" id="away">' + e.awayTeam;
                 if (e.matchStatus != "") {
                     match += '<span class="ml-2 badge badge-secondary">' + e.awayPoints + '</span>';
@@ -451,8 +451,12 @@ $(".oddsType").click(function() {
             });
         },
         success: function(data) {
-            console.log(data)
-                // $('#divMatches').find('div.btn-group-toggle').each(function() {
+            data.forEach(match => {
+                match.forEach(team => {
+                    var text = team.team;
+                    $('.teamSelector:contains(' + team.team + ')').filter(function() { return $(this).text() === text ? true : false; }).append('<span class="badge badge-secondary d-none d-sm-inline ml-2">$' + team.odds + '</span>');
+                })
+            });
         }
     })
 })
