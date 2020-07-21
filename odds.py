@@ -35,6 +35,10 @@ class OddsAPI:
             team = "Adelaide"
         elif str == "St Kilda Saints":
             team = "St Kilda"
+        elif str == "Collingwood Magpies":
+            team = "Collingwood"
+        elif str == "Geelong Cats":
+            team = "Geelong"
 
         return team
 
