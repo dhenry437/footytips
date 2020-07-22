@@ -44,7 +44,6 @@ class OddsAPI:
 
     def get_odds(self, oddsType):
         matches = []
-        print("DEBUG: oddsType = " + oddsType)
         url = 'https://api.the-odds-api.com/v3/odds?sport=aussierules_afl&region=au&apiKey=8de26a7e3d35c9e6391b762f0e37dd8f'
         r = requests.get(url)
 
