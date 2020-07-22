@@ -3,6 +3,10 @@
 var currentRound = "";
 var currentYear = 2020;
 
+$.fn.exists = function () {
+    return this.length !== 0;
+}
+
 $("#btnRefreshData").click(function() {
     var input = prompt("Authorize");
     if (input === null) {
@@ -175,14 +179,14 @@ function drawMatches(round) {
             data.forEach(e => {
                 var match = "";
                 match += '<div class="btn-group-toggle mb-2" data-toggle="buttons">';
-                match += '<label class="btn btn-outline-primary mr-3">';
+                match += '<label class="btn btn-outline-primary mr-3 teamSelector">';
                 match += '<input type="radio" name="options" id="home">' + e.homeTeam;
                 if (e.matchStatus != "") {
                     match += '<span class="ml-2 badge badge-secondary">' + e.homePoints + '</span>';
                 }
                 match += '</label>';
                 match += '<span class="mr-3">v</span>';
-                match += '<label class="btn btn-outline-primary mr-3">';
+                match += '<label class="btn btn-outline-primary mr-3 teamSelector">';
                 match += '<input type="radio" name="options" id="away">' + e.awayTeam;
                 if (e.matchStatus != "") {
                     match += '<span class="ml-2 badge badge-secondary">' + e.awayPoints + '</span>';
@@ -278,7 +282,6 @@ $('#matchesClear').click(function() {
 });
 
 $('#matchesRandom').click(function() {
-    console.log("DEBUG: matchesRandom");
     // Deactivate all
     $('#divMatches').find('label').removeClass('active');
 
@@ -422,3 +425,75 @@ $('#sendEmail').click(function() {
         }
     });
 });
+
+// +------------+
+// |            |
+// |    Odds    |
+// |            |
+// +------------+
+
+$("#btnOdds").click(function() {
+    console.log("btnOdds");
+})
+
+$(".oddsType").click(function() {
+    var selectedRound = $("#roundSelector.active").text() || $("#selectRounds").val()
+    if (selectedRound == currentRound) {
+        $.ajax({
+            url: '/odds/type/' + this.id,
+            method: "GET",
+            beforeSend: function() {
+                $.toast({
+                    text: "Fetching...", // Text that is to be shown in the toast
+                    heading: 'Odds', // Optional heading to be shown on the toast
+                    icon: 'info', // Type of toast icon
+                    showHideTransition: 'fade', // fade, slide or plain
+                    allowToastClose: true, // Boolean value true or false
+                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                    position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                    textAlign: 'left', // Text alignment i.e. left, right or center
+                    loader: false, // Whether to show loader or not. True by default
+                });
+            },
+            success: function(data) {
+                var prevTeam = null;
+                var prevTeamSelector = null;
+                var count = 0;
+                data.forEach(match => {
+                    prevTeam = null;
+                    prevTeamSelector = null;
+                    count = 0;
+                    match.forEach(team => {
+                        count++;
+
+                        if (count == 1 && $('.teamSelector:contains(' + team.team + ')').filter(function() { return $(this).text() === team.team ? true : false; }).exists()) {
+                            prevTeam = team;
+                            prevTeamSelector = $('.teamSelector:contains(' + team.team + ')').filter(function() { return $(this).text() === team.team ? true : false; });
+                        }
+
+                        if (count == 2 && prevTeamSelector != null) {
+                            if (prevTeamSelector.parent().children('.teamSelector:contains(' + team.team + ')').filter(function() { return $(this).text() === team.team ? true : false; })) {
+                                prevTeamSelector.parent().children('.teamSelector:contains(' + team.team + ')').filter(function() { return $(this).text() === team.team ? true : false; }).append('<span class="badge badge-secondary d-none d-sm-inline ml-2">$' + team.odds + '</span>');
+                                prevTeamSelector.append('<span class="badge badge-secondary d-none d-sm-inline ml-2">$' + prevTeam.odds + '</span>');
+                            }
+                        }
+                    })
+                });
+
+                $.toast({
+                    text: "Done", // Text that is to be shown in the toast
+                    heading: 'Odds', // Optional heading to be shown on the toast
+                    icon: 'success', // Type of toast icon
+                    showHideTransition: 'fade', // fade, slide or plain
+                    allowToastClose: true, // Boolean value true or false
+                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                    position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                    textAlign: 'left', // Text alignment i.e. left, right or center
+                    loader: false, // Whether to show loader or not. True by default
+                });
+            }
+        })
+    }
+})

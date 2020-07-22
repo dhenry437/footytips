@@ -9,9 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
+    <!-- JQuery Toast -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.toast.min.css') }}">
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
 
     <!-- Favicon.io -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static', filename='/img/favicon_io/apple-touch-icon.png') }}">
@@ -21,6 +20,8 @@
 
     <!-- Google reCAPTCHA v2 -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
 
     <title>Footy Tips v2</title>
 </head>
@@ -69,7 +70,23 @@
         </div>
         <div class="card-footer d-flex justify-content-between">
             <div>
-                <button class="btn btn-primary mr-2" id="matchesFavourites" disabled>Favourites</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" id="btnOdds">Favourites</button>
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <!-- <a class="dropdown-item oddsType" id="oddsAverage" >Average</a> -->
+                        <a class="dropdown-item oddsType" id="sportsbet">SportsBet</a>
+                        <a class="dropdown-item oddsType" id="beteasy">Bet Easy</a>
+                        <a class="dropdown-item oddsType" id="tab">TAB</a>
+                        <a class="dropdown-item oddsType" id="betfair">Betfair</a>
+                        <a class="dropdown-item oddsType" id="neds">Neds</a>
+                        <a class="dropdown-item oddsType" id="ladbrokes">Ladbrokes</a>
+                        <a class="dropdown-item oddsType" id="pointsbetau">Pointsbet</a>
+                        <a class="dropdown-item oddsType" id="unibet">Unibet</a>
+                    </div>
+                </div>
                 <button class="btn btn-primary" id="matchesRandom">Random</button>
             </div>
             <button class="btn btn-danger" id="matchesClear">Clear</button>
