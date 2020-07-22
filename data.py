@@ -44,7 +44,6 @@ class MatchData():
                     if row['competition'] == "HA" and int(row['round']) != currentRound:
                         currentRound = int(row['round'])
                         ha.append(row['round'])
-                        # print(row)
 
                     if row['competition'][-1] == "F":
                         final = ""
@@ -62,7 +61,6 @@ class MatchData():
                         currentRound = int(row['round'])
                         currentComp = row['competition']
 
-                # print("DEBUG: row['game time'] read as " + datetime.datetime.strptime(row['gametime'],"%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d %H:%M:%S"))
                 if datetime.datetime.strptime(row['gametime'],"%Y-%m-%d %H:%M:%S") > currentDate and not cRoundBeenSet:
                     cRound = str(currentRound)
                     cRoundBeenSet = True
