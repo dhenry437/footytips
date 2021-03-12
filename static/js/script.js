@@ -1,7 +1,7 @@
 "use strict";
 
 var currentRound = "";
-var currentYear = 2020;
+var currentYear = 2021;
 
 $.fn.exists = function () {
     return this.length !== 0;

@@ -24,7 +24,7 @@ def root():
 @app.route('/refreshdata', methods=['POST'])
 def refresh_data():
     # Validate password
-    if bcrypt.checkpw(request.form['input'].encode('utf-8'), '$2y$12$ah6kkBTLOcVPyyWs3luOjOW4Lf/y3dITgza4T2GE7Kjt6zzW9yLle'.encode('utf-8')):
+    if bcrypt.checkpw(request.form['input'].encode('utf-8'), '$2y$12$vrSkWR3b6jFHeQJP1bjQPeMrqE4MquwSk84DQSJzY9JQXXmOYtEgy'.encode('utf-8')):
         md.fetch_data()
 
         resp = Response()
