@@ -487,10 +487,14 @@ $(".oddsType").click(function () {
                 var prevTeam = null;
                 var prevTeamSelector = null;
                 var count = 0;
+
+                $('.oddsBadge').remove(); // Clear odds
+
                 data.forEach(match => {
                     prevTeam = null;
                     prevTeamSelector = null;
                     count = 0;
+
                     match.forEach(team => {
                         count++;
 
