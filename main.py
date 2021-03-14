@@ -5,6 +5,8 @@ import requests
 import json
 import bcrypt
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from data import MatchData
 from emailer import Emailer
 from odds import OddsAPI
@@ -98,11 +100,12 @@ def verify_reCAPTCHA(response):
 
     return data['success']
 
-if len(sys.argv) > 1:
-    print("len(sys.argv) > 1")
-    if sys.argv[1] == "live":
-        serve(app)
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        print("len(sys.argv) > 1")
+        if sys.argv[1] == "live":
+            serve(app)
+        else:
+            app.run(host='127.0.0.1', port=8080, debug=True)
     else:
         app.run(host='127.0.0.1', port=8080, debug=True)
-else:
-    app.run(host='127.0.0.1', port=8080, debug=True)
