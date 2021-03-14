@@ -505,8 +505,8 @@ $(".oddsType").click(function () {
 
                         if (count == 2 && prevTeamSelector != null) {
                             if (prevTeamSelector.parent().children('.teamSelector:contains(' + team.team + ')').filter(function () { return $(this).text() === team.team ? true : false; })) {
-                                prevTeamSelector.parent().children('.teamSelector:contains(' + team.team + ')').filter(function () { return $(this).text() === team.team ? true : false; }).append('<span class="badge badge-secondary ml-2 oddsBadge">$' + team.odds + '</span>');
-                                prevTeamSelector.append('<span class="badge badge-secondary ml-2 oddsBadge">$' + prevTeam.odds + '</span>');
+                                prevTeamSelector.parent().children('.teamSelector:contains(' + team.team + ')').filter(function () { return $(this).text() === team.team ? true : false; }).append('<br class="d-inline d-sm-none"><span class="ml-2 d-none d-sm-inline"></span><span class="badge badge-secondary oddsBadge">$' + team.odds + '</span>');
+                                prevTeamSelector.append('<br class="d-inline d-sm-none"><span class="ml-2 d-none d-sm-inline"></span><span class="badge badge-secondary oddsBadge">$' + prevTeam.odds + '</span>');
                             }
                         }
                     })
