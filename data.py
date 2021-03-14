@@ -2,6 +2,9 @@ import requests
 import json
 import csv
 import datetime
+import os
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 class MatchData():
     df = 'matchdata.csv'

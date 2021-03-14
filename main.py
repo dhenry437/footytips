@@ -5,6 +5,8 @@ import requests
 import json
 import bcrypt
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from data import MatchData
 from emailer import Emailer
 from odds import OddsAPI
@@ -24,7 +26,7 @@ def root():
 @app.route('/refreshdata', methods=['POST'])
 def refresh_data():
     # Validate password
-    if bcrypt.checkpw(request.form['input'].encode('utf-8'), '$2y$12$vrSkWR3b6jFHeQJP1bjQPeMrqE4MquwSk84DQSJzY9JQXXmOYtEgy'.encode('utf-8')):
+    if bcrypt.checkpw(request.form['input'].encode('utf-8'), '$2y$12$vrSkWR3b6jFHeQJP1bjQPeMrqE4MquwSk84DQSJzY9JQXXmOYtEgy'.encode('utf-8')): #givemethedata
         md.fetch_data()
 
         resp = Response()
@@ -98,11 +100,12 @@ def verify_reCAPTCHA(response):
 
     return data['success']
 
-if len(sys.argv) > 1:
-    print("len(sys.argv) > 1")
-    if sys.argv[1] == "live":
-        serve(app)
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        print("len(sys.argv) > 1")
+        if sys.argv[1] == "live":
+            serve(app)
+        else:
+            app.run(host='127.0.0.1', port=8080, debug=True)
     else:
         app.run(host='127.0.0.1', port=8080, debug=True)
-else:
-    app.run(host='127.0.0.1', port=8080, debug=True)
