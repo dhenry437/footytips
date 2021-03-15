@@ -323,41 +323,41 @@ $('#sendEmail').click(function () {
     messageText += "\n";
     $('#divMatches').find('div.btn-group-toggle').each(function () {
         if ($(this).children('label:first').hasClass('active')) {
-            messageText += "**" + $(this).children('label:first').text().replace(/[0-9]/g, '') + "**";
+            messageText += "**" + $(this).children('label:first').text().replace(/[\$][0-9].[0-9]*/g, '') + "**";
         } else {
-            messageText += $(this).children('label:first').text().replace(/[0-9]/g, '');
+            messageText += $(this).children('label:first').text().replace(/[\$][0-9].[0-9]*/g, '');
         }
         messageText += " v "
         if ($(this).children('label:last').hasClass('active')) {
-            messageText += "**" + $(this).children('label:last').text().replace(/[0-9]/g, '') + "**" + "\n";
+            messageText += "**" + $(this).children('label:last').text().replace(/[\$][0-9].[0-9]*/g, '') + "**" + "\n";
         } else {
-            messageText += $(this).children('label:last').text().replace(/[0-9]/g, '') + "\n";
+            messageText += $(this).children('label:last').text().replace(/[\$][0-9].[0-9]*/g, '') + "\n";
         }
     });
     messageText += "\n";
-    messageText += "Created using Footy Tips v2\n";
-    messageText += "www.footytipsv2.com.au\n";
+    messageText += "Created using Footy Tipping v2\n";
+    messageText += "footytipping.app\n";
 
     messageHTML += "<html>\n";
     messageHTML += "<body>\n";
     messageHTML += "<p>" + name + "'s Round " + round + " Footy Tips</p>\n";
     $('#divMatches').find('div.btn-group-toggle').each(function () {
         if ($(this).children('label:first').hasClass('active')) {
-            messageHTML += "<b>" + $(this).children('label:first').text().replace(/[0-9]/g, '') + "</b>";
+            messageHTML += "<b>" + $(this).children('label:first').text().replace(/[\$][0-9].[0-9]*/g, '') + "</b>";
         } else {
-            messageHTML += $(this).children('label:first').text().replace(/[0-9]/g, '');
+            messageHTML += $(this).children('label:first').text().replace(/[\$][0-9].[0-9]*/g, '');
         }
         messageHTML += " v "
         if ($(this).children('label:last').hasClass('active')) {
-            messageHTML += "<b>" + $(this).children('label:last').text().replace(/[0-9]/g, '') + "</b>";
+            messageHTML += "<b>" + $(this).children('label:last').text().replace(/[\$][0-9].[0-9]*/g, '') + "</b>";
         } else {
-            messageHTML += $(this).children('label:last').text().replace(/[0-9]/g, '');
+            messageHTML += $(this).children('label:last').text().replace(/[\$][0-9].[0-9]*/g, '');
         }
         messageHTML += "<br>\n"
     });
     messageHTML += "<br>\n";
-    messageHTML += "<p>Created using Footy Tips v2 <br>\n";
-    messageHTML += "<a href='footytipsv2.ddns.net'>footytipsv2.ddns.net</a></p>\n";
+    messageHTML += "<p>Created using Footy Tips v2<br>\n";
+    messageHTML += "<a href='footytipping.app'>footytipping.app</a></p>\n";
     messageHTML += "<body>\n";
     messageHTML += "<html>\n";
 
