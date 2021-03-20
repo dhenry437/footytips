@@ -118,12 +118,12 @@ function selectYearAJAX() {
                     var paginationPreliminary = "";
                     paginationPreliminary += '<p class="card-text">Preliminary</p>';
                     paginationPreliminary += '<ul class="pagination">';
-                    paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationPrev()">Previous</a></li>';
+                    paginationPreliminary += '<li class="page-item"><a class="page-link" onclick="paginationPrev()">Previous</a></li>';
                     data.preliminary.forEach(e => {
-                        paginationPreliminary += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
+                        paginationPreliminary += '<li class="page-item" id="roundSelector"><a class="page-link" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
                     });
-                    paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
-                    paginationPreliminary += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
+                    paginationPreliminary += '<li class="page-item"><a class="page-link" onclick="paginationNext()">Next</a></li>';
+                    paginationPreliminary += '<li class="page-item"><a class="page-link" onclick="paginationCurrent()">Current</a></li>';
                     paginationPreliminary += '</ul>';
 
                     $("#divRounds").append(paginationPreliminary);
@@ -132,12 +132,12 @@ function selectYearAJAX() {
                 var paginationHA = "";
                 paginationHA += '<p class="card-text">Home Away</p>';
                 paginationHA += '<ul class="pagination">';
-                paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationPrev()">Previous</a></li>';
+                paginationHA += '<li class="page-item"><a class="page-link" onclick="paginationPrev()">Previous</a></li>';
                 data.HA.forEach(e => {
-                    paginationHA += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
+                    paginationHA += '<li class="page-item" id="roundSelector"><a class="page-link" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
                 });
-                paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
-                paginationHA += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
+                paginationHA += '<li class="page-item"><a class="page-link" onclick="paginationNext()">Next</a></li>';
+                paginationHA += '<li class="page-item"><a class="page-link" onclick="paginationCurrent()">Current</a></li>';
                 paginationHA += '</ul>';
 
                 $("#divRounds").append(paginationHA);
@@ -146,12 +146,12 @@ function selectYearAJAX() {
                     var paginationFinals = "";
                     paginationFinals += '<p class="card-text">Finals</p>';
                     paginationFinals += '<ul class="pagination">';
-                    paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationPrev()">Previous</a></li>';
+                    paginationFinals += '<li class="page-item"><a class="page-link" onclick="paginationPrev()">Previous</a></li>';
                     data.finals.forEach(e => {
-                        paginationFinals += '<li class="page-item" id="roundSelector"><a class="page-link" href="#" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
+                        paginationFinals += '<li class="page-item" id="roundSelector"><a class="page-link" onclick="drawMatches(event.target.text); paginationActivate(event.target)">' + e + '</a></li>';
                     });
-                    paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationNext()">Next</a></li>';
-                    paginationFinals += '<li class="page-item"><a class="page-link" href="#" onclick="paginationCurrent()">Current</a></li>';
+                    paginationFinals += '<li class="page-item"><a class="page-link" onclick="paginationNext()">Next</a></li>';
+                    paginationFinals += '<li class="page-item"><a class="page-link" onclick="paginationCurrent()">Current</a></li>';
                     paginationFinals += '</ul>';
 
                     $("#divRounds").append(paginationFinals);
