@@ -435,8 +435,7 @@ $('#sendEmail').click(function () {
 $("#btnOdds").click(function () {
     console.log("btnOdds");
 
-    if (!$('.oddsBadge').length)
-    {
+    if (!$('.oddsBadge').length) {
         $.toast({
             text: "You need to fetch the odds first. Use the dropdown arrow.", // Text that is to be shown in the toast
             heading: 'Missing Odds', // Optional heading to be shown on the toast
@@ -451,15 +450,15 @@ $("#btnOdds").click(function () {
         });
     }
     else {
-    $('#divMatches').find('label').removeClass('active');
+        $('#divMatches').find('label').removeClass('active');
 
-    $('#divMatches').find('div.btn-group-toggle').each(function () {
-        if (parseFloat($(this).find('.home').find('.oddsBadge').text().substring(1)) <= parseFloat($(this).find('.away').find('.oddsBadge').text().substring(1))) {
-            $(this).children('label:first').addClass('active');
-        } else {
-            $(this).children('label:last').addClass('active');
-        }
-    });
+        $('#divMatches').find('div.btn-group-toggle').each(function () {
+            if (parseFloat($(this).find('.home').find('.oddsBadge').text().substring(1)) <= parseFloat($(this).find('.away').find('.oddsBadge').text().substring(1))) {
+                $(this).children('label:first').addClass('active');
+            } else {
+                $(this).children('label:last').addClass('active');
+            }
+        });
     }
 })
 
@@ -527,4 +526,55 @@ $(".oddsType").click(function () {
             }
         })
     }
-})
+});
+
+// +---------------+
+// |               |
+// |    Cookies    |
+// |               |
+// +---------------+
+
+window.onload = (event) => {
+    // Cookie Disclaimer
+    if (Cookies.get('cookieDisclaimerDismised') == null) {
+        var innerHTML = '';
+        innerHTML += '<div class="alert alert-warning alert-dismissible fade show" role="alert" id="cookieDisclaimer">';
+        innerHTML += '<strong>This app uses cookies.</strong> Cookies are used to enhance the user experience, by using this app you consent to the use of cookies.';
+        innerHTML += '<button type="button" class="close" onclick="cookieDisclaimerDismiss()" data-dismiss="alert" aria-label="Close">';
+        innerHTML += '<span aria-hidden="true">×</span>';
+        innerHTML += '</button>';
+        innerHTML += '</div>';
+
+        $('#cookieDisclaimer').html(innerHTML);
+    }
+
+    if (Cookies.get('emailName') != null) {
+        $('#name').val(Cookies.get('emailName'));
+    }
+
+    if (Cookies.get('emailToEmail') != null) {
+        $('#toEmail').val(Cookies.get('emailToEmail'));
+    }
+
+    if (Cookies.get('emailFromName') != null) {
+        $('#fromName').val(Cookies.get('emailFromName'));
+    }
+};
+
+function cookieDisclaimerDismiss() {
+    Cookies.set('cookieDisclaimerDismised', true);
+};
+
+
+// Save text
+$('#name').focusout(function () {
+    Cookies.set('emailName', $(this).val());
+});
+
+$('#toEmail').focusout(function () {
+    Cookies.set('emailToEmail', $(this).val());
+});
+
+$('#fromEmail').focusout(function () {
+    Cookies.set('emailFromEmail', $(this.val()));
+});
