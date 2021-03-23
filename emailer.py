@@ -4,12 +4,12 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 class Emailer:
-    port = 465  # For SSL
-    smtpServer = "smtp.gmail.com"
-    smtpEmail = "footytipsv2@gmail.com"
-    password = "h9TKbX93aPzY"
+    smtpPort = 587  # For SSL
+    smtpServer = "smtp-relay.sendinblue.com"
+    smtpLogin = "dhenry437@gmail.com"
+    smtpPassword = "4RCPLzhrfKNOcBUJ"
 
-    def send_email(self, toEmail, fromEmail, text, html, name, round):        
+    def send_email(self, toEmail, fromEmail, text, html, name, round):
         message = MIMEMultipart("alternative")
         message["Subject"] = name.strip() + "'s Round " + round + " Footy Tips"
         message["From"] = fromEmail
@@ -25,6 +25,9 @@ class Emailer:
         message.attach(part2)
 
         context = ssl.create_default_context()
-        with smtplib.SMTP_SSL(self.smtpServer, self.port, context=context) as server:
-            server.login(self.smtpEmail, self.password)
+        with smtplib.SMTP(self.smtpServer, self.smtpPort) as server:
+            server.ehlo()  # Can be omitted
+            server.starttls(context=context)
+            server.ehlo()  # Can be omitted
+            server.login(self.smtpLogin, self.smtpPassword)
             server.sendmail(fromEmail, toEmail, message.as_string())
