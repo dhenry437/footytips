@@ -1,6 +1,10 @@
 import requests
 import json
 import yaml
+import sys
+import os
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 with open("config.yml", "r") as ymlfile:
     cfg = yaml.safe_load(ymlfile)

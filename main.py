@@ -1,6 +1,3 @@
-from odds import OddsAPI
-from emailer import Emailer
-from data import MatchData
 from flask import Flask, render_template, request, Response
 from waitress import serve
 import sys
@@ -11,6 +8,9 @@ import bcrypt
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+from odds import OddsAPI
+from emailer import Emailer
+from data import MatchData
 
 app = Flask(__name__)
 app.config['FLASK_APP'] = "main.py"
