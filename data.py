@@ -6,12 +6,13 @@ import os
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+
 class MatchData():
     df = 'matchdata.csv'
 
     def fetch_data(self):
         csvHeader = "FanFootyDrawID,year,competition,round,gametime,day,homeTeam,awayTeam,ground,timeslot,TVCoverage,homeSupergoals,homeGoals,homeBehinds,homePoints,awaySupergoals,awayGoals,awayBehinds,awayPoints,matchStatus\n"
-        
+
         # Get data from URL
         url = 'http://www.fanfooty.com.au/resource/draw.php'
         r = requests.get(url)
@@ -64,11 +65,12 @@ class MatchData():
                         currentRound = int(row['round'])
                         currentComp = row['competition']
 
-                if datetime.datetime.strptime(row['gametime'],"%Y-%m-%d %H:%M:%S") > currentDate and not cRoundBeenSet:
+                if datetime.datetime.strptime(row['gametime'], "%Y-%m-%d %H:%M:%S") > currentDate and not cRoundBeenSet:
                     cRound = str(currentRound)
                     cRoundBeenSet = True
 
-            dump = json.dumps({"preliminary": preliminary, "HA": ha, "finals": finals, "currentRound": cRound})
+            dump = json.dumps(
+                {"preliminary": preliminary, "HA": ha, "finals": finals, "currentRound": cRound})
 
         return dump
 
@@ -86,7 +88,7 @@ class MatchData():
             dump = json.dumps(matches)
 
             return dump
-            
+
         with open(self.df) as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:

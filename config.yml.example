@@ -1,0 +1,14 @@
+sendinblue:
+  port:
+  server:
+  login:
+  password:
+
+flexcube:
+  port:
+  server:
+  login:
+  password:
+
+oddsapi:
+  key:

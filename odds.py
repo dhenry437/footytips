@@ -1,5 +1,12 @@
 import requests
 import json
+import yaml
+
+with open("config.yml", "r") as ymlfile:
+    cfg = yaml.safe_load(ymlfile)
+
+odds_api_key = cfg['oddsapi']['key']
+
 
 class OddsAPI:
     def convert_team_name(self, str):
@@ -44,7 +51,7 @@ class OddsAPI:
 
     def get_odds(self, oddsType):
         matches = []
-        url = 'https://api.the-odds-api.com/v3/odds?sport=aussierules_afl&region=au&apiKey=8de26a7e3d35c9e6391b762f0e37dd8f'
+        url = 'https://api.the-odds-api.com/v3/odds?sport=aussierules_afl&region=au&apiKey=' + odds_api_key
         r = requests.get(url)
 
         data = json.loads(r.text)
@@ -55,7 +62,8 @@ class OddsAPI:
                     hOdds = site['odds']['h2h'][0]
                     aOdds = site['odds']['h2h'][1]
 
-            match = [{'team': self.convert_team_name(m['teams'][0]), 'odds': hOdds}, {'team': self.convert_team_name(m['teams'][1]), 'odds': aOdds}]
+            match = [{'team': self.convert_team_name(m['teams'][0]), 'odds': hOdds}, {
+                'team': self.convert_team_name(m['teams'][1]), 'odds': aOdds}]
             matches.append(match)
 
         dump = json.dumps(matches)

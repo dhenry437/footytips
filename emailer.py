@@ -2,12 +2,17 @@ import smtplib
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import yaml
+
+with open("config.yml", "r") as ymlfile:
+    cfg = yaml.safe_load(ymlfile)
+
 
 class Emailer:
-    smtpPort = 587  # For SSL
-    smtpServer = "smtp-relay.sendinblue.com"
-    smtpLogin = "dhenry437@gmail.com"
-    smtpPassword = "4RCPLzhrfKNOcBUJ"
+    smtpPort = cfg['sendinblue']['port']
+    smtpServer = cfg['sendinblue']['server']
+    smtpLogin = cfg['sendinblue']['login']
+    smtpPassword = cfg['sendinblue']['password']
 
     def send_email(self, toEmail, fromEmail, text, html, name, round):
         message = MIMEMultipart("alternative")

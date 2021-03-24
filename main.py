@@ -1,3 +1,6 @@
+from odds import OddsAPI
+from emailer import Emailer
+from data import MatchData
 from flask import Flask, render_template, request, Response
 from waitress import serve
 import sys
@@ -8,9 +11,6 @@ import bcrypt
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from data import MatchData
-from emailer import Emailer
-from odds import OddsAPI
 
 app = Flask(__name__)
 app.config['FLASK_APP'] = "main.py"
@@ -18,6 +18,7 @@ app.config['FLASK_APP'] = "main.py"
 md = MatchData()
 em = Emailer()
 oa = OddsAPI()
+
 
 @app.route('/')
 def root():
@@ -27,7 +28,7 @@ def root():
 @app.route('/refreshdata', methods=['POST'])
 def refresh_data():
     # Validate password
-    if bcrypt.checkpw(request.form['input'].encode('utf-8'), '$2y$12$vrSkWR3b6jFHeQJP1bjQPeMrqE4MquwSk84DQSJzY9JQXXmOYtEgy'.encode('utf-8')): #givemethedata
+    if bcrypt.checkpw(request.form['input'].encode('utf-8'), '$2y$12$vrSkWR3b6jFHeQJP1bjQPeMrqE4MquwSk84DQSJzY9JQXXmOYtEgy'.encode('utf-8')):  # givemethedata
         md.fetch_data()
 
         resp = Response()
@@ -58,6 +59,7 @@ def get_matches(year, round):
     resp.status_code = 200
     return resp
 
+
 @app.route('/sendemail', methods=['POST'])
 def send_email():
     # print("DEBUG: toEmail = " + request.form['toEmail'])
@@ -69,8 +71,15 @@ def send_email():
     # print("DEBUG: response = " + request.form['g-recaptcha-response'])
 
     if verify_reCAPTCHA(request.form['g-recaptcha-response']):
-        em.send_email(request.form["toEmail"], request.form["fromEmail"], request.form["text"],
-                    request.form["html"], request.form["name"], request.form["round"])
+        try:
+            em.send_email(request.form["toEmail"], request.form["fromEmail"], request.form["text"],
+                          request.form["html"], request.form["name"], request.form["round"])
+        except Exception as e:
+            print(e)
+
+            resp = Response()
+            resp.status_code = 500
+            return resp
 
         resp = Response()
         resp.status_code = 200
@@ -79,6 +88,7 @@ def send_email():
         resp = Response()
         resp.status_code = 401
         return resp
+
 
 @app.route('/odds/type/<type>')
 def get_odds(type):
@@ -89,17 +99,19 @@ def get_odds(type):
     resp.status_code = 200
     return resp
 
+
 def verify_reCAPTCHA(response):
     url = 'https://www.google.com/recaptcha/api/siteverify'
     data = {
         'secret': '6Leb37EZAAAAANqJjBJ-M1FfWwrJebd3WWSBdQg3',
         'response': response
-        }
+    }
 
     r = requests.post(url, data=data)
     data = json.loads(r.text)
 
     return data['success']
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
