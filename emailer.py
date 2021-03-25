@@ -12,10 +12,10 @@ with open("config.yml", "r") as ymlfile:
 
 
 class Emailer:
-    smtpPort = cfg['sendinblue']['port']
-    smtpServer = cfg['sendinblue']['server']
-    smtpLogin = cfg['sendinblue']['login']
-    smtpPassword = cfg['sendinblue']['password']
+    smtpPort = cfg['mailjet']['port']
+    smtpServer = cfg['mailjet']['server']
+    smtpLogin = cfg['mailjet']['login']
+    smtpPassword = cfg['mailjet']['password']
 
     def send_email(self, toEmail, fromEmail, text, html, name, round):
         message = MIMEMultipart("alternative")

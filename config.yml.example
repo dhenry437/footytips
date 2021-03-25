@@ -12,3 +12,9 @@ flexcube:
 
 oddsapi:
   key:
+
+mailjet:
+  port:
+  server:
+  login:
+  password:
