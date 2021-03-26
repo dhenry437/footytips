@@ -17,11 +17,14 @@ class Emailer:
     smtpLogin = cfg['mailjet']['login']
     smtpPassword = cfg['mailjet']['password']
 
-    def send_email(self, toEmail, fromEmail, text, html, name, round):
+    fromEmail = "no-reply@footytipping.app"
+
+    def send_email(self, toEmail, ccEmail, text, html, name, round):
         message = MIMEMultipart("alternative")
         message["Subject"] = name.strip() + "'s Round " + round + " Footy Tips"
-        message["From"] = fromEmail
+        message["Cc"] = ccEmail
         message["To"] = toEmail
+        message['From'] = self.fromEmail
 
         # Turn these into plain/html MIMEText objects
         part1 = MIMEText(text, "plain")
@@ -38,4 +41,4 @@ class Emailer:
             server.starttls(context=context)
             server.ehlo()  # Can be omitted
             server.login(self.smtpLogin, self.smtpPassword)
-            server.sendmail(fromEmail, toEmail, message.as_string())
+            server.sendmail(self.fromEmail, toEmail, message.as_string())

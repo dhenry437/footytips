@@ -62,17 +62,17 @@ def get_matches(year, round):
 
 @app.route('/sendemail', methods=['POST'])
 def send_email():
-    # print("DEBUG: toEmail = " + request.form['toEmail'])
-    # print("DEBUG: fromEmail = " + request.form['fromEmail'])
-    # print("DEBUG: text = " + request.form['text'])
-    # print("DEBUG: html = " + request.form['html'])
-    # print("DEBUG: name = " + request.form['name'])
-    # print("DEBUG: round = " + request.form['round'])
-    # print("DEBUG: response = " + request.form['g-recaptcha-response'])
+    print("DEBUG: toEmail = " + request.form['toEmail'])
+    print("DEBUG: ccEmail = " + request.form['ccEmail'])
+    print("DEBUG: text = " + request.form['text'])
+    print("DEBUG: html = " + request.form['html'])
+    print("DEBUG: name = " + request.form['name'])
+    print("DEBUG: round = " + request.form['round'])
+    print("DEBUG: response = " + request.form['g-recaptcha-response'])
 
     if verify_reCAPTCHA(request.form['g-recaptcha-response']):
         try:
-            em.send_email(request.form["toEmail"], request.form["fromEmail"], request.form["text"],
+            em.send_email(request.form["toEmail"], request.form["ccEmail"], request.form["text"],
                           request.form["html"], request.form["name"], request.form["round"])
         except Exception as e:
             print(e)

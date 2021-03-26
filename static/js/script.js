@@ -87,7 +87,6 @@ function selectYearAJAX() {
             currentRound = data.currentRound;
 
             if ($("#divRoundsMobile").css('display') == "block") {
-                console.log('$("#divRoundMobile").display == "block"');
                 $("#divRoundsMobile").html("");
 
                 var selectRounds = "";
@@ -306,11 +305,7 @@ $('#sendEmail').click(function () {
     var round = -1;
     round = $('#divRounds').find('li.active').children('a').text() || $("#selectRounds").val();
     var name = $('#name').val();
-    if ($('#fromEmail').val() != "") {
-        var fromEmail = $('#fromEmail').val();
-    } else {
-        fromEmail = $('#fromEmail').prop('placeholder');
-    }
+    var ccEmail = $('#ccEmail').val();
 
     // Validate
     var form = $(this.form)[0]
@@ -366,7 +361,7 @@ $('#sendEmail').click(function () {
         method: "POST",
         data: {
             "toEmail": $('#toEmail').val(),
-            "fromEmail": fromEmail,
+            "ccEmail": ccEmail,
             "text": messageText,
             "html": messageHTML,
             "name": name,
@@ -570,8 +565,8 @@ window.onload = (event) => {
         $('#toEmail').val(Cookies.get('emailToEmail'));
     }
 
-    if (Cookies.get('emailFromName') != null) {
-        $('#fromName').val(Cookies.get('emailFromName'));
+    if (Cookies.get('emailCcEmail') != null) {
+        $('#ccEmail').val(Cookies.get('emailCcEmail'));
     }
 };
 
@@ -589,6 +584,6 @@ $('#toEmail').focusout(function () {
     Cookies.set('emailToEmail', $(this).val());
 });
 
-$('#fromEmail').focusout(function () {
-    Cookies.set('emailFromEmail', $(this.val()));
+$('#ccEmail').focusout(function () {
+    Cookies.set('emailCcEmail', $(this).val());
 });
