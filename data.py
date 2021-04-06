@@ -7,6 +7,16 @@ import os
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 
+class ResponseError(Exception):
+    def __init__(self, status_code, data):
+        self.status_code = status_code
+        self.data = data
+        super().__init__(self.data)
+
+    def __str__(self):
+        return f'{self.status_code}:\n{self.data}'
+
+
 class MatchData():
     df = 'matchdata.csv'
 
@@ -18,10 +28,13 @@ class MatchData():
         r = requests.get(url)
 
         # Write to file
-        f = open(self.df, 'w', newline='')
-        f.write(csvHeader)
-        f.write(r.text.strip())
-        f.close()
+        if r.status_code == 200:
+            f = open(self.df, 'w', newline='')
+            f.write(csvHeader)
+            f.write(r.text.strip())
+            f.close()
+        else:
+            raise ResponseError(r.status_code, r.text)
 
         return
 

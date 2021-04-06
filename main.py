@@ -36,7 +36,14 @@ def root():
 def refresh_data():
     # Validate password
     if bcrypt.checkpw(request.form['input'].encode('utf-8'), '$2y$12$vrSkWR3b6jFHeQJP1bjQPeMrqE4MquwSk84DQSJzY9JQXXmOYtEgy'.encode('utf-8')):  # givemethedata
-        md.fetch_data()
+        try:
+            md.fetch_data()
+        except Exception as e:
+            print(e)
+
+            resp = Response()
+            resp.status_code = 500
+            return resp
 
         resp = Response()
         resp.status_code = 200

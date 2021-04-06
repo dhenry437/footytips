@@ -11,7 +11,6 @@ with open("config.yml", "r") as ymlfile:
 
 class OddsAPI:
     odds_api_key = cfg['oddsapi']['key']
-    print(odds_api_key)
 
     def convert_team_name(self, str):
         if str == "Essendon Bombers":
