@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, Response
-from waitress import serve
-import sys
-import os
-import requests
-import json
+import yaml
 import bcrypt
+import json
+import requests
+import os
+import sys
+from waitress import serve
+from flask import Flask, render_template, request, Response
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -12,12 +13,18 @@ from odds import OddsAPI
 from emailer import Emailer
 from data import MatchData
 
+
 app = Flask(__name__)
 app.config['FLASK_APP'] = "main.py"
 
 md = MatchData()
 em = Emailer()
 oa = OddsAPI()
+
+with open("config.yml", "r") as ymlfile:
+    cfg = yaml.safe_load(ymlfile)
+
+recaptcha_secret = cfg['recaptcha']['secret']
 
 
 @app.route('/')
@@ -103,7 +110,7 @@ def get_odds(type):
 def verify_reCAPTCHA(response):
     url = 'https://www.google.com/recaptcha/api/siteverify'
     data = {
-        'secret': '6Leb37EZAAAAANqJjBJ-M1FfWwrJebd3WWSBdQg3',
+        'secret': recaptcha_secret,
         'response': response
     }
 
