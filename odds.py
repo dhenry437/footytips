@@ -8,10 +8,11 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 with open("config.yml", "r") as ymlfile:
     cfg = yaml.safe_load(ymlfile)
 
-odds_api_key = cfg['oddsapi']['key']
-
 
 class OddsAPI:
+    odds_api_key = cfg['oddsapi']['key']
+    print(odds_api_key)
+
     def convert_team_name(self, str):
         if str == "Essendon Bombers":
             team = "Essendon"
@@ -54,7 +55,7 @@ class OddsAPI:
 
     def get_odds(self, oddsType):
         matches = []
-        url = 'https://api.the-odds-api.com/v3/odds?sport=aussierules_afl&region=au&apiKey=' + odds_api_key
+        url = 'https://api.the-odds-api.com/v3/odds?sport=aussierules_afl&region=au&apiKey=' + self.odds_api_key
         r = requests.get(url)
 
         data = json.loads(r.text)
