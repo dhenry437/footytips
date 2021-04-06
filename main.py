@@ -91,7 +91,14 @@ def send_email():
 
 @app.route('/odds/type/<type>')
 def get_odds(type):
-    dump = oa.get_odds(type)
+    try:
+        dump = oa.get_odds(type)
+    except Exception as e:
+        print(e)
+
+        resp = Response()
+        resp.status_code = 500
+        return resp
 
     resp = Response(dump)
     resp.content_type = "application/json"
