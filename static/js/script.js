@@ -601,19 +601,19 @@ window.onload = (event) => {
 };
 
 function cookieDisclaimerDismiss() {
-    Cookies.set('cookieDisclaimerDismised', true);
+    Cookies.set('cookieDisclaimerDismised', true, { expires: 365 });
 };
 
 
 // Save text
 $('#name').focusout(function () {
-    Cookies.set('emailName', $(this).val());
+    Cookies.set('emailName', $(this).val()), { expires: 365 };
 });
 
 $('#toEmail').focusout(function () {
-    Cookies.set('emailToEmail', $(this).val());
+    Cookies.set('emailToEmail', $(this).val(), { expires: 365 });
 });
 
 $('#ccEmail').focusout(function () {
-    Cookies.set('emailCcEmail', $(this).val());
+    Cookies.set('emailCcEmail', $(this).val()), { expires: 365 };
 });
