@@ -5,7 +5,7 @@ from email.mime.multipart import MIMEMultipart
 import yaml
 import os
 
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+os.chdir(os.path.dirname(os.path.abspath(__file__)))  # MUST COME BEFORE RELATIVE IMPORTS
 
 with open("config.yml", "r") as ymlfile:
     cfg = yaml.safe_load(ymlfile)
