@@ -13,44 +13,28 @@ class OddsAPI:
     odds_api_key = cfg['oddsapi']['key']
 
     def convert_team_name(self, str):
-        if str == "Essendon Bombers":
-            team = "Essendon"
-        elif str == "Western Bulldogs":
-            team = "Western Bulldogs"
-        elif str == "Brisbane Lions":
-            team = "Brisbane Lions"
-        elif str == "Greater Western Sydney Giants":
-            team = "GWS"
-        elif str == "Gold Coast Suns":
-            team = "Gold Coast"
-        elif str == "Sydney Swans":
-            team = "Sydney"
-        elif str == "North Melbourne Kangaroos":
-            team = "North Melbourne"
-        elif str == "Richmond Tigers":
-            team = "Richmond"
-        elif str == "Carlton Blues":
-            team = "Carlton"
-        elif str == "Port Adelaide Power":
-            team = "Port Adelaide"
-        elif str == "Hawthorn Hawks":
-            team = "Hawthorn"
-        elif str == "Melbourne Demons":
-            team = "Melbourne"
-        elif str == "Fremantle Dockers":
-            team = "Fremantle"
-        elif str == "West Coast Eagles":
-            team = "West Coast"
-        elif str == "Adelaide Crows":
-            team = "Adelaide"
-        elif str == "St Kilda Saints":
-            team = "St Kilda"
-        elif str == "Collingwood Magpies":
-            team = "Collingwood"
-        elif str == "Geelong Cats":
-            team = "Geelong"
+        dict = {
+            "Essendon Bombers": "Essendon",
+            "Western Bulldogs": "Western Bulldogs",
+            "Brisbane Lions": "Brisbane Lions",
+            "Greater Western Sydney Giants": "GWS",
+            "Gold Coast Suns": "Gold Coast",
+            "Sydney Swans": "Sydney",
+            "North Melbourne Kangaroos": "North Melbourne",
+            "Richmond Tigers": "Richmond",
+            "Carlton Blues": "Carlton",
+            "Port Adelaide Power": "Port Adelaide",
+            "Hawthorn Hawks": "Hawthorn",
+            "Melbourne Demons": "Melbourne",
+            "Fremantle Dockers": "Fremantle",
+            "West Coast Eagles": "West Coast",
+            "Adelaide Crows": "Adelaide",
+            "St Kilda Saints": "St Kilda",
+            "Collingwood Magpies": "Collingwood",
+            "Geelong Cats": "Geelong"
+        }
 
-        return team
+        return dict[str]
 
     def get_odds(self, oddsType):
         matches = []
