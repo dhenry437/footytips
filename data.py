@@ -4,8 +4,7 @@ import csv
 import datetime
 import os
 
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
+os.chdir(os.path.dirname(os.path.abspath(__file__))) # MUST COME BEFORE RELATIVE IMPORTS
 
 class ResponseError(Exception):
     def __init__(self, status_code, data):

@@ -7,7 +7,7 @@ import sys
 from waitress import serve
 from flask import Flask, render_template, request, Response
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))) # MUST COME BEFORE RELATIVE IMPORTS
 
 from odds import OddsAPI
 from emailer import Emailer
