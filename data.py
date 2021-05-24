@@ -23,11 +23,12 @@ class MatchData():
     df = 'matchdata.csv'
 
     def fetch_data(self):
+        http_headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'}
         csvHeader = "FanFootyDrawID,year,competition,round,gametime,day,homeTeam,awayTeam,ground,timeslot,TVCoverage,homeSupergoals,homeGoals,homeBehinds,homePoints,awaySupergoals,awayGoals,awayBehinds,awayPoints,matchStatus\n"
 
         # Get data from URL
         url = 'http://www.fanfooty.com.au/resource/draw.php'
-        r = requests.get(url)
+        r = requests.get(url, headers=http_headers)
 
         # Write to file
         if r.status_code == 200:
