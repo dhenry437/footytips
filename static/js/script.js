@@ -7,6 +7,21 @@ $.fn.exists = function () {
     return this.length !== 0;
 }
 
+function toast(text, heading, icon) {
+    $.toast({
+        text: text, // Text that is to be shown in the toast
+        heading: heading, // Optional heading to be shown on the toast
+        icon: icon, // Type of toast icon
+        showHideTransition: 'fade', // fade, slide or plain
+        allowToastClose: true, // Boolean value true or false
+        hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+        stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+        position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+        textAlign: 'left', // Text alignment i.e. left, right or center
+        loader: false, // Whether to show loader or not. True by default
+    });
+}
+
 $("#btnRefreshData").click(function () {
     var input = prompt("Authorize");
     if (input === null) {
@@ -20,61 +35,17 @@ $("#btnRefreshData").click(function () {
             input: input
         },
         beforeSend: function () {
-            $.toast({
-                text: "Refreshing...", // Text that is to be shown in the toast
-                heading: 'Refresh Data', // Optional heading to be shown on the toast
-                icon: 'info', // Type of toast icon
-                showHideTransition: 'fade', // fade, slide or plain
-                allowToastClose: true, // Boolean value true or false
-                hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                textAlign: 'left', // Text alignment i.e. left, right or center
-                loader: false, // Whether to show loader or not. True by default
-            });
+            toast('Refreshing...', 'Refresh Data', 'info');
         },
         success: function () {
-            $.toast({
-                text: "Done", // Text that is to be shown in the toast
-                heading: 'Refresh Data', // Optional heading to be shown on the toast
-                icon: 'success', // Type of toast icon
-                showHideTransition: 'fade', // fade, slide or plain
-                allowToastClose: true, // Boolean value true or false
-                hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                textAlign: 'left', // Text alignment i.e. left, right or center
-                loader: false, // Whether to show loader or not. True by default
-            });
+            toast('Done', 'Refresh Data', 'success');
         },
         statusCode: {
             401: function () {
-                $.toast({
-                    text: "Invalid password", // Text that is to be shown in the toast
-                    heading: 'Refresh Data', // Optional heading to be shown on the toast
-                    icon: 'error', // Type of toast icon
-                    showHideTransition: 'fade', // fade, slide or plain
-                    allowToastClose: true, // Boolean value true or false
-                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                    position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                    textAlign: 'left', // Text alignment i.e. left, right or center
-                    loader: false, // Whether to show loader or not. True by default
-                });
+                toast('Invalid password', 'Refresh Data', 'error');
             },
             500: function () {
-                $.toast({
-                    text: "Internal server error. Check server output.", // Text that is to be shown in the toast
-                    heading: 'Refresh Data', // Optional heading to be shown on the toast
-                    icon: 'error', // Type of toast icon
-                    showHideTransition: 'fade', // fade, slide or plain
-                    allowToastClose: true, // Boolean value true or false
-                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                    position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                    textAlign: 'left', // Text alignment i.e. left, right or center
-                    loader: false, // Whether to show loader or not. True by default
-                });
+                toast('Internal server error. Check server output.', 'Refresh Data', 'error');;
             }
         }
     })
@@ -383,67 +354,23 @@ $('#sendEmail').click(function () {
             "g-recaptcha-response": grecaptcha.getResponse()
         },
         beforeSend: function () {
-            $.toast({
-                text: "Sending...", // Text that is to be shown in the toast
-                heading: 'Email', // Optional heading to be shown on the toast
-                icon: 'info', // Type of toast icon
-                showHideTransition: 'fade', // fade, slide or plain
-                allowToastClose: true, // Boolean value true or false
-                hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                textAlign: 'left', // Text alignment i.e. left, right or center
-                loader: false, // Whether to show loader or not. True by default
-            });
+            toast('Sending', 'Email', 'info');
         },
         success: function () {
-            $.toast({
-                text: "Email sent to " + $('#toEmail').val(), // Text that is to be shown in the toast
-                heading: 'Email', // Optional heading to be shown on the toast
-                icon: 'success', // Type of toast icon
-                showHideTransition: 'fade', // fade, slide or plain
-                allowToastClose: true, // Boolean value true or false
-                hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                textAlign: 'left', // Text alignment i.e. left, right or center
-                loader: false, // Whether to show loader or not. True by default
-            });
+            toast('Email sent to ' + $('#toEmail').val(), 'Email', 'success');
 
             // Reset reCAPTCHA
             grecaptcha.reset()
         },
         statusCode: {
             401: function () {
-                $.toast({
-                    text: "Invalid reCAPTCHA", // Text that is to be shown in the toast
-                    heading: 'Email', // Optional heading to be shown on the toast
-                    icon: 'error', // Type of toast icon
-                    showHideTransition: 'fade', // fade, slide or plain
-                    allowToastClose: true, // Boolean value true or false
-                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                    position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                    textAlign: 'left', // Text alignment i.e. left, right or center
-                    loader: false, // Whether to show loader or not. True by default
-                });
+                toast('Invalid reCAPTCHA', 'Email', 'error');
 
                 // Reset reCAPTCHA
                 grecaptcha.reset()
             },
             500: function () {
-                $.toast({
-                    text: "Failed to send email", // Text that is to be shown in the toast
-                    heading: 'Email', // Optional heading to be shown on the toast
-                    icon: 'error', // Type of toast icon
-                    showHideTransition: 'fade', // fade, slide or plain
-                    allowToastClose: true, // Boolean value true or false
-                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                    position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                    textAlign: 'left', // Text alignment i.e. left, right or center
-                    loader: false, // Whether to show loader or not. True by default
-                });
+                toast('Failed to send email', 'Email', 'error');
             }
         }
     });
@@ -490,18 +417,7 @@ $(".oddsType").click(function () {
             url: '/odds/type/' + this.id,
             method: "GET",
             beforeSend: function () {
-                $.toast({
-                    text: "Fetching...", // Text that is to be shown in the toast
-                    heading: 'Odds', // Optional heading to be shown on the toast
-                    icon: 'info', // Type of toast icon
-                    showHideTransition: 'fade', // fade, slide or plain
-                    allowToastClose: true, // Boolean value true or false
-                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                    position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                    textAlign: 'left', // Text alignment i.e. left, right or center
-                    loader: false, // Whether to show loader or not. True by default
-                });
+                toast('Fetching...', 'Odds', 'info');
             },
             success: function (data) {
                 var prevTeam = null;
@@ -532,33 +448,11 @@ $(".oddsType").click(function () {
                     })
                 });
 
-                $.toast({
-                    text: "Done", // Text that is to be shown in the toast
-                    heading: 'Odds', // Optional heading to be shown on the toast
-                    icon: 'success', // Type of toast icon
-                    showHideTransition: 'fade', // fade, slide or plain
-                    allowToastClose: true, // Boolean value true or false
-                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                    position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                    textAlign: 'left', // Text alignment i.e. left, right or center
-                    loader: false, // Whether to show loader or not. True by default
-                });
+                toast('Done', 'Odds', 'success');
             },
             statusCode: {
                 500: function () {
-                    $.toast({
-                        text: "Failed to fetch odds", // Text that is to be shown in the toast
-                        heading: 'Odds', // Optional heading to be shown on the toast
-                        icon: 'error', // Type of toast icon
-                        showHideTransition: 'fade', // fade, slide or plain
-                        allowToastClose: true, // Boolean value true or false
-                        hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                        stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                        position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                        textAlign: 'left', // Text alignment i.e. left, right or center
-                        loader: false, // Whether to show loader or not. True by default
-                    });
+                    toast('Failed to fetch odds', 'Odds', 'error');
                 }
             }
         });
