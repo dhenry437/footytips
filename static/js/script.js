@@ -456,8 +456,6 @@ $('#sendEmail').click(function () {
 // +------------+
 
 $("#btnOdds").click(function () {
-    console.log("btnOdds");
-
     if (!$('.oddsBadge').length) {
         $.toast({
             text: "You need to fetch the odds first. Use the dropdown arrow.", // Text that is to be shown in the toast
@@ -527,8 +525,8 @@ $(".oddsType").click(function () {
 
                         if (count == 2 && prevTeamSelector != null) {
                             if (prevTeamSelector.parent().children('.teamSelector:contains(' + team.team + ')').filter(function () { return $(this).text() === team.team ? true : false; })) {
-                                prevTeamSelector.parent().children('.teamSelector:contains(' + team.team + ')').filter(function () { return $(this).text() === team.team ? true : false; }).append('<br class="d-inline d-sm-none"><span class="ml-2 d-none d-sm-inline"></span><span class="badge badge-secondary oddsBadge">$' + team.odds + '</span>');
-                                prevTeamSelector.append('<br class="d-inline d-sm-none"><span class="ml-2 d-none d-sm-inline"></span><span class="badge badge-secondary oddsBadge">$' + prevTeam.odds + '</span>');
+                                prevTeamSelector.parent().children('.teamSelector:contains(' + team.team + ')').filter(function () { return $(this).text() === team.team ? true : false; }).append('<div class="oddsBadge"><span class="ml-2 d-none d-sm-inline"></span><span class="badge badge-secondary">$' + prevTeam.odds + '</span></div>');
+                                prevTeamSelector.append('<div class="oddsBadge"><span class="ml-2 d-none d-sm-inline"></span><span class="badge badge-secondary">$' + prevTeam.odds + '</span></div>');
                             }
                         }
                     })
